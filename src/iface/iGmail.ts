@@ -7,7 +7,6 @@ export interface iGmail {
     snippet: string,
     historyId: string,
     internalDate: number,
-   
     textHtml: string,
     textPlain: string,
     attachments: IAttachment[],
