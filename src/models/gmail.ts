@@ -1,9 +1,9 @@
 import { Snippets as Sn } from '../snippets';
-import { iGmail } from '../iface/iGmail';
+import { IGmail } from '../iface/igmail';
 
 
 export class Gmail {
-    constructor(private obj: iGmail) { }
+    constructor(private obj: IGmail) { }
 
     compare(b: Gmail) {
         if (this.obj.id !== b.obj.id) {

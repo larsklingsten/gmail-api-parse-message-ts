@@ -1,10 +1,10 @@
 import { Snippets } from './../snippets';
 
-import { iGmail } from '../iface/iGmail';
+import { IGmail } from '../iface/igmail';
 import { GMAIL_RESP_LK_PLAIN, GMAIL_RESP_CLAUDIA_1ATTACH, GMAIL_RESP_UBS_BUGFIX } from './test.parse-gmail-api.const';
 import { ParseGmailApi } from './../parse-gmail-api';
 import { Gmail } from '../models/gmail';
-import { IAttachment } from '../iface/iAttachment';
+import { IAttachment } from '../iface/iattachment';
 
 export class TestParseGmailApi {
     constructor() {
@@ -70,7 +70,7 @@ export class TestParseGmailApi {
         HEADERS.set('message-id', '<CA+Ntg33RvNf2eaCvqrJaZ1XFLbAncVPKbyv91OFzc87_V0qPPg@mail.gmail.com>');
 
 
-        const expectGmail: iGmail = {
+        const expectGmail: IGmail = {
             id: '16d054733b8b1ea1',
             threadId: '',
             snippet: '',
@@ -123,7 +123,7 @@ export class TestParseGmailApi {
         }];
 
 
-        const expectGmail: iGmail = {
+        const expectGmail: IGmail = {
             id: '1674065674141fb3',
             threadId: '',
             snippet: '',
@@ -179,7 +179,7 @@ export class TestParseGmailApi {
             attachmentId: 'ANGjdJ93Q20-PpHQeFyRH3cWaijILrinuqwGKfl84N-KC1SLMkf_K0359ZcijcJkrz-KMzUPBW21FbyVDfVLy2dyuZ6LhvLA4b3e7DHCb1bpM4KBVpuI6xGb8cz3uJ6WXkXrE70EnIdf3EQdZ9iJp162aW02hyS_qef2DQy_mZmjcGLGy-WadZ2_45sZ6c6GomxL8ibYmRZQISsK6SIqYyqC-85z0fvQcHfRhWUptH_9746SO6DF-vjOiZTJt3DPlDIZtw8o3CrAphP5mUMb9T9t1YWwmSILKPIw0mYeSbGj6o9AOmTBJfMYnZVvR1WV0aH9GK9BwvAMEeBUTQv9yftPKrpfVahSfKovphJYy8peP8eO3ZY1yRgGYa72LxY',
         }];
 
-        const expectGmail: iGmail = {
+        const expectGmail: IGmail = {
             id: '16d057a6b3bf99d4',
             threadId: '',
             snippet: '',

@@ -1,8 +1,8 @@
 declare var require: any;
 const b64Decode = require('base-64').decode;
 
-import { iGmail } from './iface/iGmail';
-import { PayloadPart } from './iface/iParts';
+import { IGmail } from './iface/igmail';
+import { IPart } from './iface/iparts';
 
 /** parses gmail api response to a IGmail object - typescript */
 
@@ -26,9 +26,9 @@ export class ParseGmailApi {
     }
 
     /** Parses Gmail API response to a iGmail object  */
-    public parseMessage(gmailApiResp: any): iGmail {
+    public parseMessage(gmailApiResp: any): IGmail {
 
-        const result: iGmail = {
+        const result: IGmail = {
             id: gmailApiResp.id,
             threadId: gmailApiResp.threadId,
             labelIds: gmailApiResp.labelIds,
@@ -70,7 +70,7 @@ export class ParseGmailApi {
             const contentDisposition = headers.get('content-disposition');
             const isHtml = part.mimeType && part.mimeType.indexOf('text/html') !== -1;
             const isPlain = part.mimeType && part.mimeType.indexOf('text/plain') !== -1;
-            const isAttachment = (part as PayloadPart).body.attachmentId !== undefined;
+            const isAttachment = (part as IPart).body.attachmentId !== undefined;
             const isInline = contentDisposition && contentDisposition.indexOf('inline') !== -1;
 
             if (isHtml && !isAttachment) {

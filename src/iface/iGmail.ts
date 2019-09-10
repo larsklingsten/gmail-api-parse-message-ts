@@ -1,6 +1,6 @@
-import { IAttachment } from "./iAttachment";
+import { IAttachment } from "./iattachment";
 
-export interface iGmail {
+export interface IGmail {
     id: string,
     threadId: string,
     labelIds: string[],

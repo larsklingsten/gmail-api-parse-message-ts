@@ -9,7 +9,7 @@ npm install --save gmail-api-parse-message-ts --latest
 
 or add to package.json  
 "dependencies": {
-     "gmail-api-parse-message-ts": "~2.2.5"
+     "gmail-api-parse-message-ts": "~2.2.9"
 }
 ```
 
@@ -17,7 +17,7 @@ or add to package.json
 
 ```ts
 import { ParseGmailApi } from 'gmail-api-parse-message-ts';
-import { iGmail } from 'gmail-api-parse-message-ts/dist/iface/iGmail';
+import { IGmail } from 'gmail-api-parse-message-ts/dist/iface/iGmail';
 
 export class ParseEmailService {
     /**  fetch single email from Gmail API  */
@@ -34,7 +34,7 @@ export class ParseEmailService {
     async parseEmail() {      
           const parse = new ParseGmailApi();
           const gmailResponse = await getEmail('[id of your gmail message]');
-          const iGmail = parse.parseMessage(gmailResponse);
+          const iGmail = parse.parseMessage(gmailResponse);  // returns IGmail object
           console.log(iGmail);  // see iGmail below
     }
  }
@@ -43,7 +43,7 @@ export class ParseEmailService {
 running parseEmail() which returns an iGmail object
 
 ```ts
-interface iGmail {
+interface IGmail {
     id: string;
     threadId: string;
     labelIds: string[];
