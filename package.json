@@ -8,8 +8,21 @@
   },
   "author": "Lars Klingsten <code@ckhansen.dk>",
   "license": "MIT",
-  "repository": "LarsKlingsten/gmail-api-parse-message-ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LarsKlingsten/gmail-api-parse-message-ts.git"
+  },
   "dependencies": {
     "base-64": "^0.1.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/LarsKlingsten/gmail-api-parse-message-ts/issues"
+  },
+  "homepage": "https://github.com/LarsKlingsten/gmail-api-parse-message-ts#readme",
+  "devDependencies": {},
+  "keywords": [
+    "gmail",
+    "api",
+    "parse"
+  ]
 }
