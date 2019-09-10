@@ -1,14 +1,14 @@
 {
   "name": "gmail-api-parse-message-ts",
-  "version": "2.1.1",
-  "description": "Parses the response from the Gmail API's GET message method. Typescript",
+  "version": "2.2.0",
+  "description": "Parses Gmail API's GET method to iGmail object. Typescript",
   "main": "test",
   "scripts": {
     "test": "tsc && node dist/test/runtests.js"
   },
   "author": "Lars Klingsten <code@ckhansen.dk>",
   "license": "MIT",
-  "repository": "LarsKlingsten/gmail-api-parse-message",
+  "repository": "LarsKlingsten/gmail-api-parse-message-ts",
   "dependencies": {
     "base-64": "^0.1.0"
   }

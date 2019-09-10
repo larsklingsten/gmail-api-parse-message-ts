@@ -1,5 +1,5 @@
-import { Snippets as Sn } from './snippets';
-import { iGmail } from './iface';
+import { Snippets as Sn } from '../snippets';
+import { iGmail } from '../iface/iGmail';
 
 
 export class Gmail {
@@ -15,9 +15,18 @@ export class Gmail {
             return false;
         }
 
-        if (this.obj.headers.get('to') !== b.obj.headers.get('to')) { return false; }
-        if (this.obj.headers.get('cc') !== b.obj.headers.get('cc')) { return false; }
-        if (this.obj.headers.get('from') !== b.obj.headers.get('from')) { return false; }
+        if (this.obj.headers.get('to') !== b.obj.headers.get('to')) {
+            console.log("Failed: 'to'", "got", this.obj.headers.get('to'), "exp", b.obj.headers.get('to'));
+            return false;
+        }
+        if (this.obj.headers.get('cc') !== b.obj.headers.get('cc')) {
+            console.log("Failed: 'cc'", "got", this.obj.headers.get('cc'), "exp", b.obj.headers.get('cc'));
+            return false;
+        }
+        if (this.obj.headers.get('from') !== b.obj.headers.get('from')) {
+            console.log("Failed: 'from'", "got", this.obj.headers.get('from'), "exp", b.obj.headers.get('from'));
+            return false;
+        }
 
         if (this.obj.headers.get('subject') !== b.obj.headers.get('subject')) {
             console.log("subject failed:"); return false;
@@ -59,8 +68,8 @@ export class Gmail {
                     console.log("Failed: attachments.size", 'index', i, "got", this.obj.attachments[i].size, "exp", b.obj.attachments[i].size);
                     return false;
                 }
- 
- 
+
+
             }
 
 

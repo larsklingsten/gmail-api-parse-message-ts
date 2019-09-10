@@ -1,32 +1,21 @@
 import { Snippets } from './../snippets';
 
-import { iGmail, IAttachment } from './../iface';
-import { GMAIL_RESP_LK_PLAIN, GMAIL_RESP_CLAUDIA_1ATTACH, GMAIL_RESP_UBS_BAD } from './test.parse-gmail-api.const';
+import { iGmail } from '../iface/iGmail';
+import { GMAIL_RESP_LK_PLAIN, GMAIL_RESP_CLAUDIA_1ATTACH, GMAIL_RESP_UBS_BUGFIX } from './test.parse-gmail-api.const';
 import { ParseGmailApi } from './../parse-gmail-api';
-import { Gmail } from '../gmail.class';
+import { Gmail } from '../models/gmail';
+import { IAttachment } from '../iface/iAttachment';
 
 export class TestParseGmailApi {
     constructor() {
 
-        /**  Decode ENCODED64URLSAFE */
-        //  this.decode_temp();
-
         /**   should run */
-        // this.test_parseBase64();
-        // this.test_parseEmail_LK_PLAIN();
-        // this.test_parseEmail_CLAUDIA_1ATTACH();
-        this.test_parseEmail_UBS_BAD();
-
-
+        this.test_parseBase64();
+        this.test_parseEmail_LK_PLAIN();
+        this.test_parseEmail_CLAUDIA_1ATTACH();
+        this.test_parseEmail_UBS_BUGFIX();
     }
 
-    decode_temp() {
-        const parseGmailApi = new ParseGmailApi();
-        const ENCODED = "TGFycywNCg0KQ3V0IG9mZiBmb3IgYXQgc2VuZGUgREtLIGVyIGtsLiAxMTozMC4gUGVuZ2UgYmxpdmVyIHNlbmR0IG1lZCB2YWzDuHIgaWRhZy4NCg0KVmgNCkFubmV0dGUNCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IExhcnMgS2xpbmdzdGVuIFttYWlsdG86bGFyc0BrbGluZ3N0ZW4ubmV0XSANClNlbnQ6IEZyZWl0YWcsIDYuIFNlcHRlbWJlciAyMDE5IDA4OjM0DQpUbzogS29ybm1vZCwgTGFycw0KQ2M6IERlSGFhcywgSmFuOyBCb2RlLCBBbm5ldHRlDQpTdWJqZWN0OiBbRXh0ZXJuYWxdIFJFOiBUZWxlZm9uc2FtdGFsZSBpZGFnIGtsIDE0LjA1IEtFWTpVQlMgTFVYDQoNCkxhcnMsDQoNCmplZyBiZWRlciBkaWcgdmVubGlnc3Qgc2VuZGUgZW4ga29waSBhZiBqZXJlcyAncmVtaXR0YW5jZScgZGV0YWxqZXIuDQpCZWzDuGJldCBlciBlbmRudSBpa2tlIG1vZHRhZ2V0OiBMYXJzDQoNCi0tLS0tIG9yaWdpbmFsIG1lc3NhZ2UgLS0tLS0NCkZyb206IDxsYXJzLmtvcm5tb2RAdWJzLmNvbT4NClRvOiA8bGFyc0BrbGluZ3N0ZW4ubmV0Pg0KQ2M6IDxqYW4uZGVoYWFzQHVicy5jb20-LCA8YW5uZXR0ZS5ib2RlQHVicy5jb20-DQpEYXRlOiBUaHUsIDUgU2VwIDIwMTkgMTM6NDA6NDUgKzAwMDANCg==";
-        const decoded = parseGmailApi.urlB64Decode(ENCODED);
-
-        console.log("ubs plaintext\n\n", decoded, "\n--nonprint---\n" + Snippets.removeNonPrint(decoded));
-    }
 
     test_parseBase64() {
         const parseGmailApi = new ParseGmailApi();
@@ -119,7 +108,7 @@ export class TestParseGmailApi {
         const parseGmailApi = new ParseGmailApi();
         const HEADERS = new Map<string, string>();
         HEADERS.set('from', "Claudia Haupt <claudia.haupt@aktuell-team.de>")
-        HEADERS.set('to', "<kf80@overseas.com.sg>")
+        HEADERS.set('to', "<kf80@oc.com.sg>")
         HEADERS.set('subject', "Zahlungsaufforderung")
         HEADERS.set('date', "Fri, 23 Nov 2018 11:47:06 +0000")
         HEADERS.set('message-id', "<DIIE.00004C820000F86B@192.168.102.94>");
@@ -167,20 +156,16 @@ export class TestParseGmailApi {
         if (!isSuccess) {
             console.log(`  -> got=${resultEmail.string()} expect: ${test.expect.string()}`);
         }
-
-
-
     }
 
-    test_parseEmail_UBS_BAD() {
+    test_parseEmail_UBS_BUGFIX() {
         // setup //
 
-        console.log(' test_parseEmail_UBS_BAD()')
         const parseGmailApi = new ParseGmailApi();
         const HEADERS = new Map<string, string>();
-        HEADERS.set('from', "<annette.bode@ubs.com>")
-        HEADERS.set('to', "<lars@klingsten.net>, <lars.kornmod@ubs.com>")
-        HEADERS.set('cc', "<jan.dehaas@ubs.com>")
+        HEADERS.set('from', "<annette.bode@s.com>")
+        HEADERS.set('to', "<lars@ckhansen.net>, <lars.kornmod@s.com>")
+        HEADERS.set('cc', "<jan.dehaas@s.com>")
 
         HEADERS.set('subject', "RE: Telefonsamtale idag kl 14.05 KEY:UBS LUX")
         HEADERS.set('date', "Fri, 6 Sep 2019 07:29:26 +0000")
@@ -188,13 +173,11 @@ export class TestParseGmailApi {
 
 
         const ATTACHMENTS: IAttachment[] = [{
-            filename: 'FI7100-oben11232018114520001.pdf',
-            mimeType: 'application/octet-stream',
-            size: 730600,
-            attachmentId: 'ANGjdJ-r8DxBv5YeTQSbUm3SDlKUoQbOZRLfJDcuu5iV0QqMQjqm_jRZHwIzYMAhFj2I5F6SDZ4wBRsxK_435guiFlv3Xh_UvT7hK-d7JNfZttHQ06TwStY3_U5XBe9u_upfiO7sgILuqWeEGfIdEPQ4sRchg9_L3muhT_MIWI6jLP3lwahN3EnNe6R7we9BGZhFMDhAlLXJaq9zMYmtq-E9OiGYF-YHDnUP3R0RZVbWmH2NAiSwoD_XrrzUZSrg7Asdxh9dlrvgKvLt4idQDNddlrVt4wtd_FypRqj8iquhJjlUhBtGSjN_8zTQfD2byeu1z4qZHRGpsz07qVeF1LuTjefLIeM49cmxjlYNihRD0IFnLKz-iNv20IYIYdSNi4nM5FmKw3Uv-6SvkKmb',
-
+            filename: 'disclaim.txt',
+            mimeType: 'text/plain',
+            size: 2207,
+            attachmentId: 'ANGjdJ93Q20-PpHQeFyRH3cWaijILrinuqwGKfl84N-KC1SLMkf_K0359ZcijcJkrz-KMzUPBW21FbyVDfVLy2dyuZ6LhvLA4b3e7DHCb1bpM4KBVpuI6xGb8cz3uJ6WXkXrE70EnIdf3EQdZ9iJp162aW02hyS_qef2DQy_mZmjcGLGy-WadZ2_45sZ6c6GomxL8ibYmRZQISsK6SIqYyqC-85z0fvQcHfRhWUptH_9746SO6DF-vjOiZTJt3DPlDIZtw8o3CrAphP5mUMb9T9t1YWwmSILKPIw0mYeSbGj6o9AOmTBJfMYnZVvR1WV0aH9GK9BwvAMEeBUTQv9yftPKrpfVahSfKovphJYy8peP8eO3ZY1yRgGYa72LxY',
         }];
-
 
         const expectGmail: iGmail = {
             id: '16d057a6b3bf99d4',
@@ -212,7 +195,7 @@ export class TestParseGmailApi {
         const test = {
             name: "parseGmailApi.parseMessage() UBS BAD",
             func: (x: object) => parseGmailApi.parseMessage,
-            in: GMAIL_RESP_UBS_BAD['result'],
+            in: GMAIL_RESP_UBS_BUGFIX['result'],
             expect: new Gmail(expectGmail)
         };
 
@@ -226,13 +209,6 @@ export class TestParseGmailApi {
         if (!isSuccess) {
             console.log(`  -> got=${resultEmail.string()} expect: ${test.expect.string()}`);
         }
-
-
-
     }
 
-
-
-
 }
-
