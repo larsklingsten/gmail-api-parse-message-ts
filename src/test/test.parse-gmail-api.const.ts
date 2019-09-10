@@ -739,7 +739,7 @@ export const GMAIL_RESP_CLAUDIA_3ATTACH = {
     "statusText": null
 };
 
-export const GMAIL_RESP_UBS_BAD_TEXT = {
+export const GMAIL_RESP_UBS_BAD = {
     "result": {
         "id": "16d057a6b3bf99d4",
         "threadId": "16d05472b27c3fd3",
