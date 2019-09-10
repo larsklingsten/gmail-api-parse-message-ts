@@ -1,8 +1,7 @@
 [![npm][npm]][npm-url]
 
 # gmail-api-parse-message typescript
-## Parses Gmail API's GET message method, and returns a IGmail object
-forked from https://github.com/EmilTholin/gmail-api-parse-message v2.1
+- Parses Gmail API [message.get] and returns a IGmail object
 
 ## To install:
 ```bash
@@ -12,9 +11,7 @@ or add to package.json
 "dependencies": {
      "gmail-api-parse-message-ts": "~2.2.5"
 }
- 
 ```
- 
 
 ## Example usage
 
@@ -47,18 +44,18 @@ running parseEmail() which returns an iGmail object
 
 ```ts
 interface iGmail {
-        id: string;
-        threadId: string;
-        labelIds: string[];
-        snippet: string;
-        historyId: string;
-        internalDate: number;
-        textHtml: string;
-        textPlain: string;
-        attachments: IAttachment[];
-        inline?: IAttachment[];
-        headers: Map<string, string>;
-    }
+    id: string;
+    threadId: string;
+    labelIds: string[];
+    snippet: string;
+    historyId: string;
+    internalDate: number;
+    textHtml: string;
+    textPlain: string;
+    attachments: IAttachment[];
+    inline?: IAttachment[];
+    headers: Map<string, string>;
+}
 
 interface IAttachment {
     filename: string;
@@ -84,6 +81,10 @@ interface IAttachment {
  */
  parseMessage(response);
 ```
+
+## Forked
+- forked from https://github.com/EmilTholin/gmail-api-parse-message v2.1
+
 
 ## Licence
 MIT

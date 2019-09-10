@@ -1,7 +1,7 @@
 # next version
 add cherry-picking option (similar to v2.0.0) having `subject`, `from`, `to`, `cc`, `bcc`, and `message-id` in the object. 
 
-# 2.2.0
+# 2.2.x
 Fixes bug in the original code (v2.1.0), as some attachments are not correctly recognized as attachments 
 Tests added
 Forked from `https://github.com/EmilTholin/gmail-api-parse-message`, v2.1.0, some parts converted to typescript, as necessary
