@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "module": "commonjs",
+        "target": "es2016",
+        "noImplicitAny": true,
+        "declaration": true,
+        "outDir": "./dist",
+        "sourceMap": true
+    },
+    "include": [
+        "**/*.ts"
+    ]
+}

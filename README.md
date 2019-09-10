@@ -1,11 +1,18 @@
 [![npm][npm]][npm-url]
 
+# gmail-api-parse-message typescript
+## forked from https://github.com/EmilTholin/gmail-api-parse-message v2.1
+
+
 # gmail-api-parse-message
 Parses the response from the Gmail API's GET message method.
 
+## Run Test
+tsc && node dist/test/runtests.js 
+
 ## Example usage
 
-```js
+```ts
 var rp = require('request-promise');
 var parseMessage = require('gmail-api-parse-message');
 

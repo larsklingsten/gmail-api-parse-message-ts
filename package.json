@@ -1,14 +1,14 @@
 {
-  "name": "gmail-api-parse-message",
-  "version": "2.1.0",
-  "description": "Parses the response from the Gmail API's GET message method",
-  "main": "lib",
+  "name": "gmail-api-parse-message-ts",
+  "version": "2.1.1",
+  "description": "Parses the response from the Gmail API's GET message method. Typescript",
+  "main": "test",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tsc && node dist/test/runtests.js"
   },
-  "author": "Tholle <emtholin@gmail.com>",
+  "author": "Lars Klingsten <code@ckhansen.dk>",
   "license": "MIT",
-  "repository": "EmilTholin/gmail-api-parse-message",
+  "repository": "LarsKlingsten/gmail-api-parse-message",
   "dependencies": {
     "base-64": "^0.1.0"
   }
