@@ -4,6 +4,16 @@
 ## forked from https://github.com/EmilTholin/gmail-api-parse-message v2.1
 Parses Gmail API's GET message method, and returns a IGmail object
 
+## To install:
+```bash
+npm install --save gmail-api-parse-message-ts --latest
+
+or add to package.json  
+"dependencies": {
+     "gmail-api-parse-message-ts": "~2.2.2"
+}
+ 
+```
  
 
 ## Run Test
