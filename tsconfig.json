@@ -5,8 +5,7 @@
         "target": "es2016",
         "noImplicitAny": true,
         "declaration": true,
-        "outDir": "./dist",
-        "sourceMap": true
+        "outDir": "./dist"
     },
     "include": [
         "**/*.ts"
