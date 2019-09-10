@@ -1,8 +1,8 @@
 [![npm][npm]][npm-url]
 
 # gmail-api-parse-message typescript
-## forked from https://github.com/EmilTholin/gmail-api-parse-message v2.1
-Parses Gmail API's GET message method, and returns a IGmail object
+## Parses Gmail API's GET message method, and returns a IGmail object
+forked from https://github.com/EmilTholin/gmail-api-parse-message v2.1
 
 ## To install:
 ```bash
@@ -23,7 +23,7 @@ import { ParseGmailApi } from 'gmail-api-parse-message-ts';
 import { iGmail } from 'gmail-api-parse-message-ts/dist/iface/iGmail';
 
 export class ParseEmailService {
-    /**  fetch single email from Gmail, and also updates emails array (see paramenter 'emails' below from component) */
+    /**  fetch single email from Gmail API  */
     async getGmail(id: string): Promise<gapi.client.gmail.Message> {
       const email: gapi.client.gmail.Message = await gapi.client.gmail.users.messages.get({
         userId: 'me',
@@ -36,16 +36,16 @@ export class ParseEmailService {
     /** Parses Email */
     async parseEmail() {      
           const parse = new ParseGmailApi();
-          const gmailResponse = await getEmail('nm7ntsgm7tu1b6od')
+          const gmailResponse = await getEmail('[id of your gmail message]');
           const iGmail = parse.parseMessage(gmailResponse);
-          console.log(iGmail) // which return an object of type iGmail with the following properties
+          console.log(iGmail);  // see iGmail below
+    }
  }
 ```
 
-which return the following objects
+running parseEmail() which returns an iGmail object
 
 ```ts
-
 interface iGmail {
         id: string;
         threadId: string;
