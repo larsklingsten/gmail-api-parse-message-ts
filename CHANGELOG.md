@@ -1,10 +1,10 @@
 # Versions
 
-## next version
+## 2.2.13
 add cherry-picking option (similar to v2.0.0) having `subject`, `from`, `to`, `cc`, `bcc`, and `message-id` in the object. 
 
 ## 2.2.12
-BugFix: pictures embeded into HTML showed update files attachment without a name. 
+BugFix: pictures embeded into HTML, were included as attachments [without a name]. 
 
 ## 2.2.11
 BugFix: all file names are now lower case, to avoid problems with case-sensitive operating systems, such as linux.

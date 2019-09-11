@@ -1,4 +1,5 @@
-import { Snippets } from './../snippets';
+
+import { removeNonPrint } from '../snippets';
 export class TestSnippets {
 
     constructor() {
@@ -6,11 +7,11 @@ export class TestSnippets {
     }
 
     test_removeNonChar() {
-        const snippets = new Snippets();
+
 
         const tests = [{
             name: "snippets.removeNonAsciiChars",
-            func: Snippets.removeNonPrint,
+            func: removeNonPrint,
             insAndOuts: [
                 { in: '', exp: '' },
                 { in: 'ascii', exp: 'ascii' },
