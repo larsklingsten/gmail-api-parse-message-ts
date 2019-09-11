@@ -3,7 +3,6 @@
 import { IGmail } from '../iface/igmail';
 import { GMAIL_RESP_LK_PLAIN, GMAIL_RESP_CLAUDIA_1ATTACH, GMAIL_RESP_UBS_BUGFIX, GMAIL_RESP_SPARKRON_ATTACH } from './test.parse-gmail-api.const';
 import { ParseGmailApi } from './../parse-gmail-api';
-
 import { IAttachment } from '../iface/iattachment';
 import { printResult, getEmptyEmail, compareObject, removeNonPrint, compareArray } from '../snippets';
 
@@ -13,7 +12,12 @@ const ATTRIB_TEXTPLAIN_LABELSID = ['textPlain', 'labelIds']
 const ATTRIBUTES_TEXTHTML = ['textHtml']
 const ATTRIB_FOR_ATTACH = ['filename', 'mimeType', 'size', 'attachmentId'];
 
+
+
 export class TestParseGmailApi {
+
+    private parseGmailApi = new ParseGmailApi();
+
     constructor() {
         /**  should all run */
         this.test_parseBase64();
@@ -24,7 +28,6 @@ export class TestParseGmailApi {
     }
 
     test_parseBase64() {
-        const parseGmailApi = new ParseGmailApi();
         const ENCODED = "TGFycywKCmplZyBiZWRlciBkaWcgdmVubGlnc3Qgc2VuZGUgZW4ga29waSBhZiBqZXJlcyAncmVtaXR0YW5jZScgZGV0YWxqZXIuIEJlbMO4YmV0IGVyIGVuZG51IGlra2UgbW9kdGFnZXQ6IExhcnMKCi0tLS0tIG9yaWdpbmFsIG1lc3NhZ2UgLS0tLS0KRnJvbTogPGxhcnMua29ybm1vZEB1YnMuY29tPgpUbzogPGxhcnNAa2xpbmdzdGVuLm5ldD4KQ2M6IDxqYW4uZGVoYWFzQHVicy5jb20-LCA8YW5uZXR0ZS5ib2RlQHVicy5jb20-CkRhdGU6IFRodSwgNSBTZXAgMjAxOSAxMzo0MDo0NSArMDAwMAo="
         const DECODED = removeNonPrint(`Lars,
                 jeg beder dig venligst sende en kopi af jeres 'remittance' detaljer. Beløbet er endnu ikke modtaget: Lars
@@ -36,11 +39,11 @@ export class TestParseGmailApi {
 
         const test = {
             name: "parseGmailApi.urlB64Decode 1/1",
-            func: (s: string) => parseGmailApi.urlB64Decode,
+            func: (s: string) => this.parseGmailApi.urlB64Decode,
             in: ENCODED,
             exp: DECODED
         };
-        const result = parseGmailApi.urlB64Decode(ENCODED)
+        const result = this.parseGmailApi.urlB64Decode(ENCODED)
         const isSuccess = removeNonPrint(result) === test.exp;
         console.log("isSuccess", isSuccess, test.name);
         if (!isSuccess) {
@@ -51,7 +54,6 @@ export class TestParseGmailApi {
     test_parseEmail_LK_PLAIN() {
 
         // setup //
-        const parseGmailApi = new ParseGmailApi();
         const HEADERS = new Map<string, string>();
         HEADERS.set(
             'received', 'from 726060055156 named unknown by gmailapi.google.com with ' +
@@ -76,13 +78,12 @@ export class TestParseGmailApi {
 
         const test = {
             name: "parseGmailApi.parseMessage() LK_PLAIN",
-            func: (x: object) => parseGmailApi.parseMessage,
             in: GMAIL_RESP_LK_PLAIN,
             expect: expectGmail
         };
 
         // evaluate //
-        let result = new ParseGmailApi().parseMessage(test.in);
+        let result = this.parseGmailApi.parseMessage(test.in);
         result.textPlain = removeNonPrint(result.textPlain);
         result.textHtml = removeNonPrint(result.textHtml);
         const attribs = ATTRIB_TEXTPLAIN_LABELSID
@@ -127,7 +128,7 @@ export class TestParseGmailApi {
         };
 
         // execute //
-        let result = new ParseGmailApi().parseMessage(test.in);
+        let result = this.parseGmailApi.parseMessage(test.in);
         result.textPlain = removeNonPrint(result.textPlain);
         result.textHtml = removeNonPrint(result.textHtml);
 
@@ -174,7 +175,7 @@ export class TestParseGmailApi {
         };
 
         // evaluate //
-        let result = new ParseGmailApi().parseMessage(test.in);
+        let result = this.parseGmailApi.parseMessage(test.in);
         result.textPlain = removeNonPrint(result.textPlain);
         result.textHtml = removeNonPrint(result.textHtml); // not tested
         const attribs = ATTRIB_TEXTPLAIN_LABELSID
@@ -219,13 +220,12 @@ export class TestParseGmailApi {
         };
 
         // test 
-        let result = new ParseGmailApi().parseMessage(test.in);
+        let result = this.parseGmailApi.parseMessage(test.in);
         result.textPlain = removeNonPrint(result.textPlain);
         result.textHtml = removeNonPrint(result.textHtml);
         const attribs = ATTRIB_RECEIVERS.concat(ATTRIB_TEXTPLAIN_LABELSID)
 
         // evaluate
-
         const compareErrors = compareObject(result, test.expect, attribs);
         printResult(compareErrors, test.name);
 

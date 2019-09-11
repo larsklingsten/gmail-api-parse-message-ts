@@ -4,11 +4,16 @@ const b64Decode = require('base-64').decode;
 import { IGmail } from './iface/igmail';
 import { IPart } from './iface/iparts';
 import { getEmptyEmail, copyGmail } from './snippets';
- 
+import { ParseReceiverService } from './parse-receivers';
 
 /** parses gmail api response to a IGmail object - typescript */
-
 export class ParseGmailApi {
+
+    private svcParseReceivers: ParseReceiverService;
+
+    constructor() {
+        this.svcParseReceivers = new ParseReceiverService()
+    }
 
     /** Decodes a URLSAFE Base64 string to its original representation */
     urlB64Decode(s: string): string {
@@ -27,26 +32,7 @@ export class ParseGmailApi {
         return result;
     }
 
-    /**  TODO -> much more work to do (should return an array of receiver class or interface) */
-    public parseReceivers(receivers: string): string[] {
-        if (!receivers) {
-            return [];
-        }
-
-        // TODO this does not appear to be right? We must always split
-        if (!receivers.includes(',')) {
-            return [receivers];
-        }
-
-        const msgReceivers = receivers.split(',');
-        for (let i = 0; i < msgReceivers.length; i++) {
-            msgReceivers[i] = msgReceivers[i].trim();
-        };
-        return msgReceivers;
-
-
-        return msgReceivers;
-    }
+ 
 
 
     /**  parses Gmail Api Response, and return a parse IGmail Object
@@ -79,9 +65,9 @@ export class ParseGmailApi {
     private parseAddresses(gmail: IGmail): IGmail {
 
         gmail.from = gmail.headers.get('from') || '';
-        gmail.to = this.parseReceivers(gmail.headers.get('to') || '');
-        gmail.cc = this.parseReceivers(gmail.headers.get('cc') || '');
-        gmail.bcc = this.parseReceivers(gmail.headers.get('bcc') || '');
+        gmail.to = this.svcParseReceivers.parseReceivers(gmail.headers.get('to') || '');
+        gmail.cc = this.svcParseReceivers.parseReceivers(gmail.headers.get('cc') || '');
+        gmail.bcc = this.svcParseReceivers.parseReceivers(gmail.headers.get('bcc') || '');
         gmail.dateStr = gmail.headers.get('date') || '';
         gmail.subject = gmail.headers.get('subject') || '';
         gmail.attachments = gmail.attachments || gmail.inline || [];

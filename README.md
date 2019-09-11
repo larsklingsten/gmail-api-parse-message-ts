@@ -9,7 +9,7 @@ npm install --save gmail-api-parse-message-ts --latest
 
 or add to package.json  
 "dependencies": {
-     "gmail-api-parse-message-ts": "~2.2.9"
+     "gmail-api-parse-message-ts": "~2.2.9" 
 }
 ```
 

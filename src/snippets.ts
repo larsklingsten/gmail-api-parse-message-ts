@@ -130,3 +130,18 @@ export function compareObject(a: any, b: any, objectAttributes: string[]): strin
 export function removeNonPrint(s: string): string {
     return s.replace(/[^A-Za-zæøåÆØÅ0-9$§!"#€%&/\[\]\?{}()<>=@,.;':]/g, '');
 };
+
+
+
+
+// RegexDelimitor return []string delimited by ",", ";" or single or double quotes
+// removes double and single quote as well
+export function splitByCommaColon(s: string): string[] {
+    const delimitor = /[;,](?=([^\"]*\"[^\"]*\")*[^\"]*$)/gm
+
+    const arr = s.split(delimitor)
+        .filter(x => x != undefined)
+        .map(x => x.trim())
+
+    return arr;
+}

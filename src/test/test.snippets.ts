@@ -1,9 +1,10 @@
 
-import { removeNonPrint } from '../snippets';
+import { removeNonPrint, splitByCommaColon } from '../snippets';
 export class TestSnippets {
 
     constructor() {
-        this.test_removeNonChar();
+        // this.test_removeNonChar();
+        this.test_splitOnComma();
     }
 
     test_removeNonChar() {
@@ -46,5 +47,41 @@ export class TestSnippets {
             }
             console.log("isSuccess", t.insAndOuts.length === successCount, `${t.name} tests=${t.insAndOuts.length} success=${successCount} `);
         })
+
     }
+
+    test_splitOnComma() {
+        const tests = [{
+            name: "snippets.splitOnComma",
+            func: splitByCommaColon,
+            insAndOuts: [
+                { in: 'Lars, Klingsten', exp: ['Lars', 'Klingsten'] },
+                { in: 'Lars; Klingsten', exp: ['Lars', 'Klingsten'] },
+                { in: '"Lars; Klingsten"', exp: ['"Lars; Klingsten"'] },
+
+            ]
+
+        }]
+
+        tests.forEach(t => {
+            let successCount = 0;
+            for (let i = 0; i < t.insAndOuts.length; i++) {
+                const r = t.insAndOuts[i];
+                const result = t.func(r.in)
+                const isSuccess = JSON.stringify(result) == JSON.stringify(r.exp);
+
+                console.log(t.name, i, "isSuccess", isSuccess);
+                if (isSuccess) {
+                    successCount++;
+                }
+                else {
+                    console.log(' ---> got =', result, ' exp =', r.exp);
+                }
+            }
+            console.log("isSuccess", t.insAndOuts.length === successCount, `${t.name} tests=${t.insAndOuts.length} success=${successCount} `);
+        })
+    }
+
+
 }
+

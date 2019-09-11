@@ -40,8 +40,6 @@ export class TestParseReceivers {
         const result = svcParse.test_parseAddresses(test.in)
         const compareErrors = compareObject(result, test.expect, ['to', 'cc', 'bcc', 'subject']);
 
-
-
         printResult(compareErrors, test.name);
 
 
