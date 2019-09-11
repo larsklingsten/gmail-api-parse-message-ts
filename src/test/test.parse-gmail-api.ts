@@ -1,7 +1,7 @@
 import { Snippets } from './../snippets';
 
 import { IGmail } from '../iface/igmail';
-import { GMAIL_RESP_LK_PLAIN, GMAIL_RESP_CLAUDIA_1ATTACH, GMAIL_RESP_UBS_BUGFIX } from './test.parse-gmail-api.const';
+import { GMAIL_RESP_LK_PLAIN, GMAIL_RESP_CLAUDIA_1ATTACH, GMAIL_RESP_UBS_BUGFIX, GMAIL_RESP_SPARKRON_ATTACH } from './test.parse-gmail-api.const';
 import { ParseGmailApi } from './../parse-gmail-api';
 import { Gmail } from '../models/gmail';
 import { IAttachment } from '../iface/iattachment';
@@ -14,6 +14,7 @@ export class TestParseGmailApi {
         this.test_parseEmail_LK_PLAIN();
         this.test_parseEmail_CLAUDIA_1ATTACH();
         this.test_parseEmail_UBS_BUGFIX();
+        this.test_parseEmail_SPARKRON_ATTACH();
     }
 
 
@@ -210,5 +211,48 @@ export class TestParseGmailApi {
             console.log(`  -> got=${resultEmail.string()} expect: ${test.expect.string()}`);
         }
     }
+
+    test_parseEmail_SPARKRON_ATTACH() {
+        // setup //
+        const HEADERS = new Map<string, string>();
+        HEADERS.set('from', "km@sparkron.dk")
+        HEADERS.set('to', "Lars Klingsten <lars@klingsten.net>")
+        HEADERS.set('subject', "Vedr.: Fwd: Sparekassen Kronjylland")
+        HEADERS.set('date', "Mon, 9 Sep 2019 13:43:27 +0200")
+        HEADERS.set('message-id', "<OFC9BA20DA.4F3D4261-ONC1258470.004061A4-C1258470.0040674B@fejl.sdc.dk>");
+
+        const ATTACHMENTS: IAttachment[] = [];
+
+        const expectGmail: IGmail = {
+            id: '16d15d60afbe8aea',
+            threadId: '',
+            snippet: '',
+            historyId: '',
+            internalDate: 0,
+            textPlain: `HejLarsHeltokIkiggerbareindenandendagVenlighilsenKlausMadsenSouschefSkt.PaulsAfdelingJægergårdsgade100B,8000AarhusCEmailkm@sparkron.dkTlf.87321106Fra:LarsKlingsten<lars@klingsten.net>Til:km@sparkron.dkDato:0909201913:42Emne:Vedr.:Fwd:SparekassenKronjyllandHejKlaus,Jegbliverdesværrenødtiludsættemødetidag.Mvh/LarsKlingstenoriginalmessageFrom:km@sparkron.dkTo:LarsKlingsten<lars@klingsten.net>Cc:Date:Thu,5Sep201913:04:440200HejLarsFairnok.Jeghjælpergernemedkonto,nemkontoogmastercarddebit.JegharbrugforatIudfylderogkommerindmedkundeskemalegitimation(pasogsygesikringsbevis)VenlighilsenKlausMadsenSouschefSkt.PaulsAfdelingJægergårdsgade100B,8000AarhusCEmailkm@sparkron.dkTlf.87321106Fra:LarsKlingsten<lars@klingsten.net>Til:km@sparkron.dkDato:0509201912:57Emne:Vedr.:Fwd:SparekassenKronjyllandHejKlaus,MinbankharikkeenafdelingiAarhusMvh/Lars.originalmessageFrom:km@sparkron.dkTo:LarsKlingsten<lars@klingsten.net>Cc:Date:Thu,5Sep201912:40:440200HejLarsSelvtak.Måjegsørge,hvorforIikkebenytterdinbank?(jegtrormåskeIkanfådetlavetgratisder)VenlighilsenKlausMadsenSouschefSkt.PaulsAfdelingJægergårdsgade100B,8000AarhusCEmailkm@sparkron.dkTlf.87321106Fra:LarsKlingsten<lars@klingsten.net>Til:KlausMadsen<km@sparkron.dk>Cc:RYOMAKATO<rkato1911@gmail.com>,ck@klingsten.netDato:0409201916:38Emne:Fwd:SparekassenKronjyllandHejKlausMadsen,Takfordithurtigetilbagesvar.Detsætterjegprispå.Ryomavores15årigeudvekslingsstudentfraJapan,oghanskalbohososdetnæsteårstid.JegharerRyomasværge,menshaneriDK.HanharbrugforenNemKonto,ogvalgetpåKronjyllandersketfordiIerdennærmestebank.Hanharisagensnaturingenpension,lønsedlerosv.Hanerklartilatkommeforbiformedpasoggultsygesikringskort,anytimemvh/LarsKlingsten23237004originalmessageFrom:RYOMAKATO<rkato1911@gmail.com>To:"lars@klingsten.net"<lars@klingsten.net>Cc:Date:Wed,4Sep201916:25:230200ForwardedmessageFrom:<km@sparkron.dk>Date:Wed,Sep4,2019at16:04Subject:SparekassenKronjyllandTo:<rkato1911@gmail.com>HejRyomaTakfordinhenvendelse.Foratkunnebehandledinhenvendelse,viljegbededigomatsendemigfølgendeøkonomiskedokumenter:3senestelønsedlerGivemigadgangtilskat,sevedhæftetvejledningOversigtoverdinefasteudgifterKontooversigtfranuværendebankKopiafpensionsinfo,kanhentespåpensionsinfo.dkDerudoverviljeggernehøremereom:Hvorforerdupåudkigefterennybank?Hvorforerdetosduskrivertil?Hvaderdinforventningtilossombank?Jegserfremtilathørefradig.GodaftenVenlighilsenKlausMadsenSouschef[image:sparekassenkronjylland]<http://sparkron.dk/>Skt.PaulsAfdelingJægergårdsgade100B,8000AarhusC<https://www.google.com/maps/search/J%C3%A6gerg%C3%A5rdsgade100B,8000AarhusC?entry=gmail&source=g>Emailkm@sparkron.dkTlf.87321106[image:nyhedsbrev]<http://sparkron.dk/nyhedsbrev/>[image:twitter]<https://twitter.com/sparkronjylland/>[image:facebook]<http://facebook.com/sparekassenkronjylland/>[image:LinkedIn]<https://www.linkedin.com/company/27187/><https://www.sparkron.dk/privat/selvbetjening/applepay>`,
+            textHtml: '',
+            attachments: ATTACHMENTS,
+            headers: HEADERS,
+            labelIds: ['IMPORTANT', 'Label_9061698769113909650', 'Label_418', 'CATEGORY_PERSONAL', 'INBOX', 'Label_4358'],
+        };
+
+        const test = {
+            name: "parseGmailApi.parseMessage() SPARKRON_ATTACH",
+            in: GMAIL_RESP_SPARKRON_ATTACH['result'],
+            expect: new Gmail(expectGmail)
+        };
+
+        // evaluate //
+        let result = new ParseGmailApi().parseMessage(test.in);
+        let resultEmail = new Gmail(result);
+        const isSuccess = resultEmail.compare(test.expect);
+
+        // write
+        console.log("isSuccess", isSuccess, test.name);
+        if (!isSuccess) {
+            console.log(`  -> got=${resultEmail.string()} expect: ${test.expect.string()}`);
+        }
+    }
+
 
 }

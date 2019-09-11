@@ -70,7 +70,7 @@ export class ParseGmailApi {
             const contentDisposition = headers.get('content-disposition');
             const isHtml = part.mimeType && part.mimeType.indexOf('text/html') !== -1;
             const isPlain = part.mimeType && part.mimeType.indexOf('text/plain') !== -1;
-            const isAttachment = (part as IPart).body.attachmentId !== undefined;
+            const isAttachment = this.isAttachment(part);
             const isInline = contentDisposition && contentDisposition.indexOf('inline') !== -1;
 
             if (isHtml && !isAttachment) {
@@ -106,4 +106,11 @@ export class ParseGmailApi {
         }
         return result;
     };
+
+    private isAttachment(part: IPart): boolean {
+        if (part.body.attachmentId && part.filename) {
+            return true;
+        }
+        return false;
+    }
 }

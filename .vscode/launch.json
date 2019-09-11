@@ -9,10 +9,13 @@
             "request": "launch",
             "name": "Test",
             "program": "${workspaceFolder}/dist/test/runtests.js",
-            "stopOnEntry": true,
+            "stopOnEntry": false,
             "preLaunchTask": "tsc: build - tsconfig.json",
+            // "outFiles": [
+            //     "${workspaceFolder}/dist/test/runtests.js"
+            // ],
             "outFiles": [
-                "${workspaceFolder}/dist/test/runtests.js"
+                "${workspaceFolder}/**/*.js"
             ]
         }
     ]
