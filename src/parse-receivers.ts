@@ -1,3 +1,4 @@
+import { IReceiver } from './iface/ireceiver';
 
 import { splitByCommaSemicolon } from './snippets';
 const CLASS_NAME = 'ParseReceiverService';
@@ -10,22 +11,38 @@ export class ParseReceiverService {
         console.log("@" + CLASS_NAME, 'init', ParseReceiverService.initCount);
     }
 
-    /**  TODO -> much more work to do (should return an array of receiver class or interface) */
-    public parseReceivers(receivers: string): string[] {
-        if (!receivers) {
+
+    public parseReceivers(receiverStr: string): IReceiver[] {
+
+        if (!receiverStr) {
+            return [];
+        }
+        // parse string to string array
+        const receiverStrArray = splitByCommaSemicolon(receiverStr)
+        if (!receiverStrArray) {
             return [];
         }
 
-        // TODO this does not appear to be right? We must always split
-        if (!receivers.includes(',')) {
-            return [receivers];
-        }
+        // parse receiverStrArray to IIeceiver array
+        return this.parseStrArrayToReceivers(receiverStrArray);
+    }
 
-        const msgReceivers = receivers.split(',');
-        for (let i = 0; i < msgReceivers.length; i++) {
-            msgReceivers[i] = msgReceivers[i].trim();
-        };
-        return msgReceivers;
+
+    /**  TODO -> much more work to do (should return an array of receiver class or interface) */
+    public parseStrArrayToReceivers(strReceivers: string[]): IReceiver[] {
+
+        const receivers: IReceiver[] = [];
+        for (let i = 0; i < strReceivers.length; i++) {
+
+            // parse strReceiver, which should contain except one email address, but eventual name 
+
+
+
+
+
+            receivers.push({ name: '', email: strReceivers[i] })
+        }
+        return receivers;
     }
 
     // convertOldEmailAdrToNew converts old emails to new types.

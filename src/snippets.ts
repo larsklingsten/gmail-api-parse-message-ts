@@ -134,10 +134,7 @@ export function removeNonPrint(s: string): string {
 
 
 
-/**
- * splits a string by delimiters (',' or ',') except when delimiters are two quotes '"'.
- * note: Does NOT handle delimiter within single quotes "'" */
-
+/** splits a string by delimiters (',' or ',') except when delimiters are two quotes (' ' or " ")  */
 export function splitByCommaSemicolon(s: string): string[] {
     s += ";";                                                       // we add a delimitor at end , to avoid fixing a possible last item
     const delimitor1 = ';';
