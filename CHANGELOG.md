@@ -1,7 +1,9 @@
 # Versions
 
 ## 2.2.13
-add cherry-picking option (similar to v2.0.0) having `subject`, `from`, `to`, `cc`, `bcc`, and `message-id` in the object. 
+- adds cherry-picking option (similar to v2.0.0) having `subject`, `from`, `to`, `cc`, `bcc`, and `message-id` in the object.
+- adds IReceiver interface (be better manage name && emails)
+- uses 'klingsten snippets' as dependency (Strings.splitByCommaSemicolon, Strings.removeNonPrintingCharsAndSpaces)
 
 ## 2.2.12
 BugFix: pictures embeded into HTML, were included as attachments [without a name]. 

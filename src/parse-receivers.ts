@@ -1,6 +1,6 @@
 import { IReceiver } from './iface/ireceiver';
 
-import { splitByCommaSemicolon } from './snippets';
+import { Strings} from 'klingsten-snippets';
 const CLASS_NAME = 'ParseReceiverService';
 
 export class ParseReceiverService {
@@ -18,7 +18,7 @@ export class ParseReceiverService {
             return [];
         }
         // parse string to string array
-        const receiverStrArray = splitByCommaSemicolon(receiverStr)
+        const receiverStrArray = Strings.splitByCommaSemicolon(receiverStr)
         if (!receiverStrArray) {
             return [];
         }
@@ -50,7 +50,7 @@ export class ParseReceiverService {
     // The func always return an array with minimum a single address item (in name="")
     convertOldEmailAdrToNew(emailStr: string): string[] {
 
-        const emails = splitByCommaSemicolon(emailStr)
+        const emails = Strings.splitByCommaSemicolon(emailStr)
         return emails
     }
 

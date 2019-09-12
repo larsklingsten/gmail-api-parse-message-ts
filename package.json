@@ -14,7 +14,8 @@
     "url": "git+https://github.com/LarsKlingsten/gmail-api-parse-message-ts.git"
   },
   "dependencies": {
-    "base-64": "^0.1.0"
+    "base-64": "^0.1.0",
+    "klingsten-snippets": "1.0.14"
   },
   "bugs": {
     "url": "https://github.com/LarsKlingsten/gmail-api-parse-message-ts/issues"
