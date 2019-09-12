@@ -134,14 +134,33 @@ export function removeNonPrint(s: string): string {
 
 
 
-// RegexDelimitor return []string delimited by ",", ";" or single or double quotes
-// removes double and single quote as well
-export function splitByCommaColon(s: string): string[] {
-    const delimitor = /[;,](?=([^\"]*\"[^\"]*\")*[^\"]*$)/gm
+/**
+ * splits a string by delimiters (',' or ',') except when delimiters are two quotes '"'.
+ * note: Does NOT handle delimiter within single quotes "'" */
 
-    const arr = s.split(delimitor)
-        .filter(x => x != undefined)
-        .map(x => x.trim())
+export function splitByCommaSemicolon(s: string): string[] {
+    s += ";";                                                       // we add a delimitor at end , to avoid fixing a possible last item
+    const delimitor1 = ';';
+    const delimitor2 = ',';
 
-    return arr;
+    const resultArr: string[] = [];
+    let doubleQuoteCount = 0;
+    let singleQuoteCount = 0;
+    let startPos = 0;
+    for (let i = 0; i < s.length; i++) {
+
+        // find "," or ";", and add to result array, except if within quotes (we just check if quotes counts are uneven)
+        if ((s[i] === delimitor1 || s[i] === delimitor2) && doubleQuoteCount % 2 === 0 && singleQuoteCount % 2 === 0) {
+            const subStr = s.substr(startPos, i - startPos).trim();  // get string, and remove empty spaces
+            startPos = i + 1;                                        // skip current delimiter char
+            if (subStr.length > 0) {                                 // avoid empty items
+                resultArr.push(subStr);
+            }
+        } else if (s[i] === `"`) {
+            doubleQuoteCount++;
+        } else if (s[i] === `'`) {
+            singleQuoteCount++;
+        }
+    }
+    return resultArr;
 }

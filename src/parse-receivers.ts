@@ -1,5 +1,5 @@
 
-import { splitByCommaColon } from './snippets';
+import { splitByCommaSemicolon } from './snippets';
 const CLASS_NAME = 'ParseReceiverService';
 
 export class ParseReceiverService {
@@ -33,7 +33,7 @@ export class ParseReceiverService {
     // The func always return an array with minimum a single address item (in name="")
     convertOldEmailAdrToNew(emailStr: string): string[] {
 
-        const emails = splitByCommaColon(emailStr)
+        const emails = splitByCommaSemicolon(emailStr)
         return emails
     }
 

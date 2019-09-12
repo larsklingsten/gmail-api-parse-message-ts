@@ -1,5 +1,5 @@
 
-import { removeNonPrint, splitByCommaColon } from '../snippets';
+import { removeNonPrint, splitByCommaSemicolon } from '../snippets';
 export class TestSnippets {
 
     constructor() {
@@ -53,11 +53,31 @@ export class TestSnippets {
     test_splitOnComma() {
         const tests = [{
             name: "snippets.splitOnComma",
-            func: splitByCommaColon,
+            func: splitByCommaSemicolon,
             insAndOuts: [
-                { in: 'Lars, Klingsten', exp: ['Lars', 'Klingsten'] },
-                { in: 'Lars; Klingsten', exp: ['Lars', 'Klingsten'] },
-                { in: '"Lars; Klingsten"', exp: ['"Lars; Klingsten"'] },
+                { in: 'Lars;K;', exp: ['Lars', 'K'] },
+                { in: 'Lars; K', exp: ['Lars', 'K'] },
+                { in: ' Lars, K ', exp: ['Lars', 'K'] },
+                { in: 'Lars, K', exp: ['Lars', 'K'] },
+                { in: '"Lars, K"', exp: ['"Lars, K"'] },
+                { in: '"Lars; K"', exp: ['"Lars; K"'] },
+
+                { in: '"Lars, K"', exp: ['"Lars, K"'] },
+
+                { in: '"Lars, K" <lars@k.net>, , ,   ', exp: ['"Lars, K" <lars@k.net>'] },
+                { in: '"Lars; K" <lars@k.net> ; , ;', exp: ['"Lars; K" <lars@k.net>'] },
+                {
+                    in: `"Lars, K1" <lars@k.net>, "lars, K2" <lars@klingsten.net>, lars K3 <lars@klingsten.net>`,
+                    exp: ['"Lars, K1" <lars@k.net>', '"lars, K2" <lars@klingsten.net>', 'lars K3 <lars@klingsten.net>']
+                },
+                {
+                    in: `'Lars, K1' <lars@k.net>, "lars, K2" <lars@klingsten.net>, lars K3 <lars@klingsten.net>`,
+                    exp: [`'Lars, K1' <lars@k.net>`, '"lars, K2" <lars@klingsten.net>', 'lars K3 <lars@klingsten.net>']
+                },
+
+
+
+
 
             ]
 
@@ -69,7 +89,6 @@ export class TestSnippets {
                 const r = t.insAndOuts[i];
                 const result = t.func(r.in)
                 const isSuccess = JSON.stringify(result) == JSON.stringify(r.exp);
-
                 console.log(t.name, i, "isSuccess", isSuccess);
                 if (isSuccess) {
                     successCount++;
