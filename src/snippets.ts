@@ -54,8 +54,19 @@ export function printResult(compareErrors: string[], funcName: string) {
  * @param  arrayB  
  * @param  string[]  attributes of ArrayA/ArrayB, such a ['id','name']
  * @returns string[] of errors, if any
+ * 
+ * example usage:
+ * compare two arrays on attribute 'name', and disregard attribute 'id
+ * 
+ * const array1 = [{ id: '1', name: 'peter'}, { id: '2', name: 'lars'}];  
+ * const array2 = [{ id: 'a', name: 'peter'}, { id: 'b', name: 'lars'}];  
+*  const compareTheseAttributesOnly = ['name'] 
+*  const errors = compareArrays(array1, array2, compareTheseAttributesOnly)
+*  printResult(errors, 'function name');  
+*
+* // errors is an empty [], as 'name's are identical, even though the 'id's not
 */
-export function compareArray(arrayA: any[], arrayB: any[], objectAttributes: string[]): string[] {
+export function compareArrays(arrayA: any[], arrayB: any[], objectAttributes: string[]): string[] {
     const errors: string[] = [];
 
     if (!Array.isArray(arrayA)) {

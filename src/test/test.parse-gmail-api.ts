@@ -4,7 +4,7 @@ import { IGmail } from '../iface/igmail';
 import { GMAIL_RESP_LK_PLAIN, GMAIL_RESP_CLAUDIA_1ATTACH, GMAIL_RESP_UBS_BUGFIX, GMAIL_RESP_SPARKRON_ATTACH } from './test.parse-gmail-api.const';
 import { ParseGmailApi } from './../parse-gmail-api';
 import { IAttachment } from '../iface/iattachment';
-import { printResult, getEmptyEmail, compareObject, removeNonPrint, compareArray } from '../snippets';
+import { printResult, getEmptyEmail, compareObject, removeNonPrint, compareArrays } from '../snippets';
 
 
 const ATTRIB_RECEIVERS = ['id', 'to', 'cc', 'from', 'subject']
@@ -138,7 +138,7 @@ export class TestParseGmailApi {
         printResult(compareErrors, test.name);
 
 
-        compareErrors = compareArray(result.attachments, test.expect.attachments, ATTRIB_FOR_ATTACH);
+        compareErrors = compareArrays(result.attachments, test.expect.attachments, ATTRIB_FOR_ATTACH);
         printResult(compareErrors, test.name + "_attach");
     }
 
@@ -185,7 +185,7 @@ export class TestParseGmailApi {
         const compareErrors = compareObject(result, test.expect, attribs);
         printResult(compareErrors, test.name);
 
-        const compareErrors_attach = compareArray(result.attachments, test.expect.attachments, ATTRIB_FOR_ATTACH);
+        const compareErrors_attach = compareArrays(result.attachments, test.expect.attachments, ATTRIB_FOR_ATTACH);
         printResult(compareErrors_attach, test.name + "_attach");
 
     }
@@ -229,7 +229,7 @@ export class TestParseGmailApi {
         const compareErrors = compareObject(result, test.expect, attribs);
         printResult(compareErrors, test.name);
 
-        const compareErrors_attach = compareArray(result.attachments, test.expect.attachments, ATTRIB_FOR_ATTACH);
+        const compareErrors_attach = compareArrays(result.attachments, test.expect.attachments, ATTRIB_FOR_ATTACH);
         printResult(compareErrors_attach, test.name + "_attach");
     }
 

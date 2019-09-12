@@ -1,5 +1,5 @@
 import { ParseReceiverService } from './../parse-receivers';
-import { compareArray, printResult } from '../snippets';
+import { compareArrays, printResult } from '../snippets';
 
 
 export class TestStringsToEmails {
@@ -25,7 +25,7 @@ export class TestStringsToEmails {
             const r = test.insAndOuts[i];
             const result = svcParseReceiver.parseStrArrayToReceivers(r.in)
 
-            const errors = compareArray(result, r.exp, ['name', 'email']);
+            const errors = compareArrays(result, r.exp, ['name', 'email']);
 
             printResult(errors, test.name + ' test=' + i);
 
