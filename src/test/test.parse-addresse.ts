@@ -1,5 +1,5 @@
 import { ParseGmailApi } from '../parse-gmail-api';
-import { printResult, getEmptyEmail, compareObject } from '../snippets';
+import { getEmptyEmail } from '../snippets';
 
 export class TestParseAddresses {
     constructor() {

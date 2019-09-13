@@ -1,10 +1,12 @@
+import { Compare } from 'klingsten-snippets';
+
 
 
 import { IGmail } from '../iface/igmail';
 import { GMAIL_RESP_LK_PLAIN, GMAIL_RESP_CLAUDIA_1ATTACH, GMAIL_RESP_UBS_BUGFIX, GMAIL_RESP_SPARKRON_ATTACH } from './test.parse-gmail-api.const';
 import { ParseGmailApi } from './../parse-gmail-api';
 import { IAttachment } from '../iface/iattachment';
-import { printResult, getEmptyEmail, compareObject, removeNonPrint, compareArrays } from '../snippets';
+import { getEmptyEmail, removeNonPrint } from '../snippets';
 
 
 const ATTRIB_RECEIVERS = ['id', 'to', 'cc', 'from', 'subject']
@@ -87,10 +89,10 @@ export class TestParseGmailApi {
         result.textPlain = removeNonPrint(result.textPlain);
         result.textHtml = removeNonPrint(result.textHtml);
         const attribs = ATTRIB_TEXTPLAIN_LABELSID
-        const compareErrors = compareObject(result, test.expect, attribs);
+        const compareErrors = Compare.objects(result, test.expect, attribs);
 
         // write
-        printResult(compareErrors, test.name);
+        Compare.printErrors(compareErrors, test.name);
     }
 
     test_parseEmail_CLAUDIA_1ATTACH() {
@@ -134,12 +136,12 @@ export class TestParseGmailApi {
 
         // evaluate
         const attribs = ATTRIB_TEXTPLAIN_LABELSID
-        let compareErrors = compareObject(result, test.expect, attribs);
-        printResult(compareErrors, test.name);
+        let compareErrors = Compare.objects(result, test.expect, attribs);
+        Compare.printErrors(compareErrors, test.name);
 
 
-        compareErrors = compareArrays(result.attachments, test.expect.attachments, ATTRIB_FOR_ATTACH);
-        printResult(compareErrors, test.name + "_attach");
+        compareErrors = Compare.arrays(result.attachments, test.expect.attachments, ATTRIB_FOR_ATTACH);
+        Compare.printErrors(compareErrors, test.name + "_attach");
     }
 
     test_parseEmail_UBS_BUGFIX() {
@@ -182,11 +184,11 @@ export class TestParseGmailApi {
 
 
         // write
-        const compareErrors = compareObject(result, test.expect, attribs);
-        printResult(compareErrors, test.name);
+        const compareErrors = Compare.objects(result, test.expect, attribs);
+        Compare.printErrors(compareErrors, test.name);
 
-        const compareErrors_attach = compareArrays(result.attachments, test.expect.attachments, ATTRIB_FOR_ATTACH);
-        printResult(compareErrors_attach, test.name + "_attach");
+        const compareErrors_attach = Compare.arrays(result.attachments, test.expect.attachments, ATTRIB_FOR_ATTACH);
+        Compare.printErrors(compareErrors_attach, test.name + "_attach");
 
     }
 
@@ -226,11 +228,11 @@ export class TestParseGmailApi {
         const attribs = ATTRIB_RECEIVERS.concat(ATTRIB_TEXTPLAIN_LABELSID)
 
         // evaluate
-        const compareErrors = compareObject(result, test.expect, attribs);
-        printResult(compareErrors, test.name);
+        const compareErrors = Compare.objects(result, test.expect, attribs);
+        Compare.printErrors(compareErrors, test.name);
 
-        const compareErrors_attach = compareArrays(result.attachments, test.expect.attachments, ATTRIB_FOR_ATTACH);
-        printResult(compareErrors_attach, test.name + "_attach");
+        const compareErrors_attach = Compare.arrays(result.attachments, test.expect.attachments, ATTRIB_FOR_ATTACH);
+        Compare.printErrors(compareErrors_attach, test.name + "_attach");
     }
 
 }

@@ -1,6 +1,6 @@
+import { Compare} from 'klingsten-snippets';
 import { ParseReceiverService } from './../parse-receivers';
-import { compareArrays, printResult } from '../snippets';
-
+ 
 
 export class TestStringsToEmails {
     constructor() {
@@ -25,10 +25,10 @@ export class TestStringsToEmails {
             const r = test.insAndOuts[i];
             const result = svcParseReceiver.parseStrArrayToReceivers(r.in)
 
-            const errors = compareArrays(result, r.exp, ['name', 'email']);
+            const errors = Compare.arrays(result, r.exp, ['name', 'email']);
 
-            printResult(errors, test.name + ' test=' + i);
-
+            Compare.printErrors(errors, test.name + ' test=' + i);
+ 
         }
     }
 
