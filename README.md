@@ -16,7 +16,7 @@ import { IGmail } from 'gmail-api-parse-message-ts/dist/iface/iGmail';
 
 export class ParseEmailService {
     /**  fetch single email from Gmail API  */
-    async getGmail(id: string): Promise<gapi.client.gmail.Message> {
+    async getGmailFromApi(id: string): Promise<gapi.client.gmail.Message> {
       const email: gapi.client.gmail.Message = await gapi.client.gmail.users.messages.get({
         userId: 'me',
         id: id,  
@@ -29,8 +29,8 @@ export class ParseEmailService {
     async parseEmail() {      
           const parse = new ParseGmailApi();
           const gmailResponse = await getEmail('[id of your gmail message]');
-          const iGmail = parse.parseMessage(gmailResponse);  // returns IGmail object
-          console.log(iGmail);  // see iGmail below
+          const email : IEmail = parse.parseMessage(gmailResponse);  // returns IEmail object
+          console.log(email);  // see iGmail below
     }
  }
 ```
@@ -38,28 +38,28 @@ export class ParseEmailService {
 running parseEmail() which returns an iGmail object
 
 ```ts
-interface IGmail { 
-    id: string;              // gapi id  gapi = 'Gmail API'
-    threadId: string;        // gapi thread
-    snippet: string;         // gapi snippet
-    historyId: string;
+interface IEmail {           // gapi = 'Gmail API'
+    
+    id:       string;        // gapi id  threadId: string;        // gapi thread
+    snippet:  string;        // gapi snippet
+    historyId:string;
     internalDate: number;
     dateStr: string;
-    from: string;            //  { name:'Amzn Web Service', email:'web@amz.com' } ]
-    to: IReceiver[];         //  [ { name:'Lars K', email:'lk@email' } ]
-    cc: IReceiver[];         
-    bcc: IReceiver[];        
+    from: IReceiver;         //  { name:'Amzn Web Service', email:'web@amz.com' }  
+    to:   IReceiver[];       //  [ { name:'Lars K', email:'lk@email' } ]
+    cc:   IReceiver[];       //  etc  
+    bcc:  IReceiver[];       //  etc 
     subject: string;         //  "subject": "The AWS Summit Stockholm is back! Register and join us on May 22, 2019",
 
-    textHtml: string,
+    textHtml:  string,
     textPlain: string,
     attachments: IAttachment[],
-    inline?: IAttachment[],
-    size: number;
+    inline?:     IAttachment[],
+    size:        number;
 
     labelIds: string[],
-    labels?: IGapiLabel[],  // parsed.labelIds of IGapiLabel[]
-    headers: Map<string, string>,
+    labels?:  IGapiLabel[],  // parsed.labelIds of IGapiLabel[]
+    headers:  Map<string, string>,
 
 interface IAttachment {
     filename: string;
@@ -75,6 +75,19 @@ interface IAttachment {
 interface IReceiver {
    name: string;
    email: string;
+}
+
+/** Just A Copy of Gmail API Label  -> gapi.client.gmail.Label */
+export interface IGapiLabel {
+    id?: string;
+    labelListVisibility?: string;
+    messageListVisibility?: string;
+    messagesTotal?: number;
+    messagesUnread?: number;
+    name?: string;
+    threadsTotal?: number;
+    threadsUnread?: number;
+    type?: string;
 }
 
 ```

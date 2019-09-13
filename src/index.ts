@@ -1,6 +1,7 @@
 
 export { ParseGmailApi } from './parse-gmail-api';
-export { IGmail } from './iface/igmail';
-export { IGapiLabel } from './iface/igapi-label';
-import { IAttachment } from './iface/iattachment';
-import { IReceiver } from './iface/ireceiver';
+export { IEmail  }        from './iface/iemail';
+export { IAttachment }   from './iface/iattachment';
+export { IReceiver }     from './iface/ireceiver';
+
+export { IGapiLabel }    from './iface/igapi-label';

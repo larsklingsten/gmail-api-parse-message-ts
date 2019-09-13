@@ -1,5 +1,5 @@
 
-/** copy of GAPI LABEL */
+/** Just A Copy of Gmail API Label  -> gapi.client.gmail.Label */
 export interface IGapiLabel {
     /** The immutable ID of the label. */
     id?: string;

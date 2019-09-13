@@ -1,7 +1,7 @@
 declare var require: any;
 const b64Decode = require('base-64').decode;
 
-import { IGmail } from './iface/igmail';
+import { IEmail } from './iface/iemail';
 import { IPart } from './iface/iparts';
 import { getEmptyEmail, copyGmail } from './snippets';
 
@@ -23,7 +23,7 @@ export class ParseGmailApi {
 
     /** Parses a Gmail API response to a iGmail object 
      * 'to', 'from' 'cc', 'subject' are stored property 'headers'  */
-    private parseRawGmailResponse(gmailApiResp: any): IGmail {
+    private parseRawGmailResponse(gmailApiResp: any): IEmail {
 
         const gmail = getEmptyEmail();
         gmail.id = gmailApiResp.id;
@@ -121,9 +121,9 @@ export class ParseGmailApi {
 
     /**  parses Gmail Api Response, and return a parse IGmail Object
      * @param {gmailApiResp} gmail api response 
-     * @returns {IGmail } with message parsed to textPlain or textHmtl, receivers, attachments, and 
+     * @returns {IEmail } with message parsed to textPlain or textHmtl, receivers, attachments, and 
      */
-    public parseMessage(gmailApiResp: any): IGmail {
+    public parseMessage(gmailApiResp: any): IEmail {
 
         // its not evident that we only need the result, so we test to see what we got
         const resp = gmailApiResp['result'] || gmailApiResp;
@@ -137,25 +137,25 @@ export class ParseGmailApi {
     /** for testing parseAddresses purpose only
      * does not mutate object gmail, return a parsed copy
      */
-    public test_parseAddresses(gmail: IGmail): IGmail {
+    public test_parseAddresses(gmail: IEmail): IEmail {
         const copy = copyGmail(gmail);
         return this.parseHeaders(copy);
     }
 
-   
+
 
 
 
     /**  mutates/parse IGmail headers (such as 'to', 'subject') 
      * to IGmail's to,cc,from,subject attributes  
-    * @param { IGmail } with 'to' 'from' 'cc' 'subject' set in the headers attributes
+    * @param { IEmail } with 'to' 'from' 'cc' 'subject' set in the headers attributes
     */
-    private parseHeaders(gmail: IGmail): IGmail {
+    private parseHeaders(gmail: IEmail): IEmail {
 
-        gmail.from = gmail.headers.get('from') || '';
-        gmail.to = this.parseReceivers(gmail.headers.get('to') || '');
-        gmail.cc = this.parseReceivers(gmail.headers.get('cc') || '');
-        gmail.bcc = this.parseReceivers(gmail.headers.get('bcc') || '');
+        gmail.from = this.parseReceivers(gmail.headers.get('from'))[0]; // should be ok?
+        gmail.to = this.parseReceivers(gmail.headers.get('to'));
+        gmail.cc = this.parseReceivers(gmail.headers.get('cc'));
+        gmail.bcc = this.parseReceivers(gmail.headers.get('bcc'));
         gmail.dateStr = gmail.headers.get('date') || '';
         gmail.subject = gmail.headers.get('subject') || '';
         gmail.attachments = gmail.attachments || gmail.inline || [];
@@ -169,8 +169,8 @@ export class ParseGmailApi {
         return gmail;
     }
 
-     /** converts are string container emails, and returns them as IReceivers[] */
-     public parseReceivers(receiverStr: string): IReceiver[] {
+    /** converts are string container emails, and returns them as IReceivers[] */
+    public parseReceivers(receiverStr: string = ""): IReceiver[] {
         const receivers: IReceiver[] = [];
         if (!receiverStr) {
             return receivers;
@@ -189,14 +189,14 @@ export class ParseGmailApi {
         return receivers;
     }
 
-        /**  ensures that the name is always update with a name, 
-     * such as a resp {name:'', email:'lars@email.com'} we extract names from the email  */
+    /**  ensures that the name is always update with a name, 
+ * such as a resp {name:'', email:'lars@email.com'} we extract names from the email  */
     private ensureNameFromSplit(resp: { name: string, email: string }): string {
 
         // if a name was not provided, then we take the first part of the email adr
         if (!resp.name) {
             const pos = resp.email.indexOf('@');
-           
+
             // @ must be found, and is not in the first [0] position ('@email.com' is not a valid email adr )
             if (pos > 0) {
                 resp.name = resp.email[0].toUpperCase() + resp.email.substr(1, pos - 1);

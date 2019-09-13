@@ -1,6 +1,6 @@
-import { IGmail } from './iface/igmail';
+import { IEmail } from './iface/iemail';
 
-export function getEmptyEmail(): IGmail {
+export function getEmptyEmail(): IEmail {
     const iGmail = {
         id: '',
         size: -1,
@@ -11,7 +11,7 @@ export function getEmptyEmail(): IGmail {
         textHtml: '',
         internalDate: -1,
         dateStr: '',
-        from: '',
+        from: { name: '', email: '' },
         to: [],
         cc: [],
         bcc: [],
@@ -26,13 +26,13 @@ export function getEmptyEmail(): IGmail {
 }
 
 /** returns a fresh copy of IGmail */
-export function copyGmail(gmail: IGmail): IGmail {
-    const copy: IGmail = JSON.parse(JSON.stringify(gmail));
+export function copyGmail(gmail: IEmail): IEmail {
+    const copy: IEmail = JSON.parse(JSON.stringify(gmail));
     copy.headers = new Map(gmail.headers);
     return copy;
 }
 
- 
+
 
 /** remove non printing chars, space, intended for use for string comparison with multilines  */
 export function removeNonPrint(s: string): string {
