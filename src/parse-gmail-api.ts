@@ -176,7 +176,7 @@ export class ParseGmailApi {
             return receivers;
         }
         // parse string to string array
-        const strArrReceivers = Strings.splitByCommaSemicolon(receiverStr)
+        const strArrReceivers = Strings.splitExceptQuotes(receiverStr)
         if (!strArrReceivers) {
             return receivers;
         }
