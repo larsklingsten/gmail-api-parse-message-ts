@@ -6,11 +6,6 @@
 ## To install:
 ```bash
 npm install --save gmail-api-parse-message-ts --latest
-
-or add to package.json  
-"dependencies": {
-     "gmail-api-parse-message-ts": "~2.2.9" 
-}
 ```
 
 ## Example usage
@@ -24,7 +19,7 @@ export class ParseEmailService {
     async getGmail(id: string): Promise<gapi.client.gmail.Message> {
       const email: gapi.client.gmail.Message = await gapi.client.gmail.users.messages.get({
         userId: 'me',
-        id: id,  // format: 'metadata'
+        id: id,  
         format: 'full'
       });
       return email;

@@ -2,7 +2,7 @@
 
 ## 2.2.13
 - adds cherry-picking option (similar to v2.0.0) having `subject`, `from`, `to`, `cc`, `bcc`, and `message-id` in the object.
-- adds IReceiver interface (be better manage name && emails)
+- adds IReceiver interface {name: '', email:''}
 - uses 'klingsten snippets' as dependency (Strings.splitByCommaSemicolon, Strings.removeNonPrintingCharsAndSpaces)
 - moves Compare.arrays, Compare.objects, Compare.printErrors to klingsten-snippets
 
