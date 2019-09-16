@@ -29,7 +29,6 @@ export class TestParseReceivers {
             const result = svcParseGmailApi.parseReceivers(r.in)
 
             const errors = Compare.arrays(result, r.exp, ['name', 'email']);
-
             Compare.printErrors(errors, test.name + ' test=' + i);
 
         }
