@@ -78,7 +78,7 @@ interface IReceiver {
 }
 
 /** Just A Copy of Gmail API Label  -> gapi.client.gmail.Label */
-export interface IGapiLabel {
+interface IGapiLabel {
     id?: string;
     labelListVisibility?: string;
     messageListVisibility?: string;
