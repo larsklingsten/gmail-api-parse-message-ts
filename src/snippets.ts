@@ -1,7 +1,7 @@
 import { IEmail } from './iface/iemail';
 
 export function getEmptyEmail(): IEmail {
-    const iGmail = {
+    const email = {
         id: '',
         size: -1,
         threadId: '',
@@ -22,7 +22,7 @@ export function getEmptyEmail(): IEmail {
         headers: new Map<string, string>()
 
     };
-    return iGmail;
+    return email;
 }
 
 /** returns a fresh copy of IGmail */

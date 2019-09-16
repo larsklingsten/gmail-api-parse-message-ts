@@ -14,11 +14,27 @@ export class ParseGmailApi {
 
     constructor() { }
 
-    /** Decodes a URLSAFE Base64 string to its original representation */
-    urlB64Decode(s: string): string {
-        return s ? decodeURIComponent(escape(b64Decode(s.replace(/\-/g, '+').replace(/\_/g, '/')))) : '';
+
+
+    /**  parses Gmail Api Response, and return a parse IGmail Object
+     * @param {gmailApiResp} gmail api response 
+     * @returns {IEmail } with message parsed to textPlain or textHmtl, receivers, attachments, and 
+     */
+    public parseMessage(gmailApiResp: any): IEmail {
+
+        // its not evident that we only need the result, so we test to see what we got
+        const resp = gmailApiResp['result'] || gmailApiResp;
+
+        const gmail = this.parseRawGmailResponse(resp);
+        this.parseHeaders(gmail);
+        return gmail;
     }
 
+
+    /** Decodes a URLSAFE Base64 string to its original representation */
+    private urlB64Decode(s: string): string {
+        return s ? decodeURIComponent(escape(b64Decode(s.replace(/\-/g, '+').replace(/\_/g, '/')))) : '';
+    }
 
 
     /** Parses a Gmail API response to a iGmail object 
@@ -119,19 +135,7 @@ export class ParseGmailApi {
         return result;
     }
 
-    /**  parses Gmail Api Response, and return a parse IGmail Object
-     * @param {gmailApiResp} gmail api response 
-     * @returns {IEmail } with message parsed to textPlain or textHmtl, receivers, attachments, and 
-     */
-    public parseMessage(gmailApiResp: any): IEmail {
 
-        // its not evident that we only need the result, so we test to see what we got
-        const resp = gmailApiResp['result'] || gmailApiResp;
-
-        const gmail = this.parseRawGmailResponse(resp);
-        this.parseHeaders(gmail);
-        return gmail;
-    }
 
 
     /** for testing parseAddresses purpose only
