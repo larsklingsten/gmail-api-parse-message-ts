@@ -4,6 +4,7 @@
   "description": "Parses Gmail API's GET method to iGmail object. Typescript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "prepublish": "tsc",
   "scripts": {
     "test": "tsc && node dist/test/runtests.js"
   },
