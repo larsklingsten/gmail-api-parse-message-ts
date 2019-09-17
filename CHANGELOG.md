@@ -1,5 +1,8 @@
 # Versions
 
+## 2.2.20
+Adds removeUnwantedCharsFromName()
+
 ## 2.2.19
 Adds getEmptyEmail() to exported functions 
 

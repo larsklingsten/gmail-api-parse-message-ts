@@ -185,15 +185,17 @@ export class ParseGmailApi {
         if (!receiverStr) {
             return receivers;
         }
-        // parse string to string array
+        // split string of received into array
         const strArrReceivers = Strings.splitExceptQuotes(receiverStr)
         if (!strArrReceivers) {
             return receivers;
         }
 
+        //split name from email address
         for (let i = 0; i < strArrReceivers.length; i++) {
             const resp = Strings.splitNameFromEmail(strArrReceivers[i])
             resp.name = this.ensureNameFromSplit(resp);
+            resp.name = this.removeUnwantedCharsFromName(resp.name);
             receivers.push({ name: resp.name, email: resp.email });
         }
         return receivers;
@@ -202,11 +204,9 @@ export class ParseGmailApi {
     /**  ensures that the name is always update with a name, 
  * such as a resp {name:'', email:'lars@email.com'} we extract names from the email  */
     private ensureNameFromSplit(resp: { name: string, email: string }): string {
-
         // if a name was not provided, then we take the first part of the email adr
         if (!resp.name) {
             const pos = resp.email.indexOf('@');
-
             // @ must be found, and is not in the first [0] position ('@email.com' is not a valid email adr )
             if (pos > 0) {
                 resp.name = resp.email[0].toUpperCase() + resp.email.substr(1, pos - 1);
@@ -215,6 +215,11 @@ export class ParseGmailApi {
             }
         }
         return resp.name;
+    }
+
+    private removeUnwantedCharsFromName(s: string) {
+        const re = /(['"<>()!*;#?]+)/gm
+        return s.replace(re, '');
     }
 
 
