@@ -10,7 +10,7 @@ export function getEmptyEmail(): IEmail {
         textPlain: '',
         textHtml: '',
         internalDate: -1,
-        dateStr: '',
+        sentDate: -1,
         from: { name: '', email: '' },
         to: [],
         cc: [],
@@ -19,7 +19,8 @@ export function getEmptyEmail(): IEmail {
         labelIds: [],        // rawID
         snippet: '',
         attachments: [],
-        headers: new Map<string, string>()
+        headers: new Map<string, string>(),
+        isUnread: true
 
     };
     return email;
@@ -32,12 +33,7 @@ export function copyGmail(gmail: IEmail): IEmail {
     return copy;
 }
 
-
-
-/** remove non printing chars, space, intended for use for string comparison with multilines  */
+/** remove non printing chars, space, just intended for use for string comparison with multilines  */
 export function removeNonPrint(s: string): string {
     return s.replace(/[^A-Za-zæøåÆØÅ0-9$§!"#€%&/\[\]\?{}()<>=@,.;':]/g, '');
 };
-
-
-

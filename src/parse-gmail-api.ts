@@ -3,7 +3,7 @@ const b64Decode = require('base-64').decode;
 
 import { IEmail } from './iface/iemail';
 import { IPart } from './iface/iparts';
-import { getEmptyEmail, copyGmail } from './snippets';
+import { getEmptyEmail, copyGmail } from './constants';
 
 import { IReceiver } from './iface/ireceiver';
 import { Strings } from 'klingsten-snippets';
@@ -41,24 +41,25 @@ export class ParseGmailApi {
      * 'to', 'from' 'cc', 'subject' are stored property 'headers'  */
     private parseRawGmailResponse(gmailApiResp: any): IEmail {
 
-        const gmail = getEmptyEmail();
-        gmail.id = gmailApiResp.id;
-        gmail.threadId = gmailApiResp.threadId;
-        gmail.labelIds = gmailApiResp.labelIds;
-        gmail.snippet = gmailApiResp.snippet;
-        gmail.historyId = gmailApiResp.historyId;
+        const email = getEmptyEmail();
+        email.id = gmailApiResp.id;
+        email.threadId = gmailApiResp.threadId;
+        email.labelIds = gmailApiResp.labelIds;
+        email.snippet = gmailApiResp.snippet;
+        email.historyId = gmailApiResp.historyId;
+        email.isUnread = this.isEmailUnread(email.labelIds);
 
         if (gmailApiResp.internalDate) {
-            gmail.internalDate = parseInt(gmailApiResp.internalDate);
+            email.internalDate = parseInt(gmailApiResp.internalDate);
         }
 
         const payload = gmailApiResp.payload;
         if (!payload) {
-            return gmail;
+            return email;
         }
 
         let headers = this.indexHeaders(payload.headers);
-        gmail.headers = headers;
+        email.headers = headers;
 
         let parts = [payload];
         let firstPartProcessed = false;
@@ -82,15 +83,15 @@ export class ParseGmailApi {
             const isInline = contentDisposition && contentDisposition.indexOf('inline') !== -1;
 
             if (isHtml && !isAttachment) {
-                gmail.textHtml = this.urlB64Decode(part.body.data);
+                email.textHtml = this.urlB64Decode(part.body.data);
             } else if (isPlain && !isAttachment) {
-                gmail.textPlain = this.urlB64Decode(part.body.data);
+                email.textPlain = this.urlB64Decode(part.body.data);
             } else if (isAttachment) {
                 const body = part.body;
-                if (!gmail.attachments) {
-                    gmail.attachments = [];
+                if (!email.attachments) {
+                    email.attachments = [];
                 }
-                gmail.attachments.push({
+                email.attachments.push({
                     filename: part.filename,
                     mimeType: part.mimeType,
                     size: body.size,
@@ -99,10 +100,10 @@ export class ParseGmailApi {
                 });
             } else if (isInline) {
                 const body = part.body;
-                if (!gmail.inline) {
-                    gmail.inline = [];
+                if (!email.inline) {
+                    email.inline = [];
                 }
-                gmail.inline.push({
+                email.inline.push({
                     filename: part.filename,
                     mimeType: part.mimeType,
                     size: body.size,
@@ -112,7 +113,7 @@ export class ParseGmailApi {
             }
             firstPartProcessed = true;
         }
-        return gmail;
+        return email;
     };
 
     private isAttachment(part: IPart): boolean {
@@ -150,27 +151,32 @@ export class ParseGmailApi {
 
 
 
-    /**  mutates/parse IGmail headers (such as 'to', 'subject') 
-     * to IGmail's to,cc,from,subject attributes  
-    * @param { IEmail } with 'to' 'from' 'cc' 'subject' set in the headers attributes
+    /**  mutates/parse IEmail headers (such as 'to', 'subject') 
+     * to to, cc, from, subject attributes  
+    * @param { IEmail } with 'to' 'from' 'cc' 'subject' 'bcc' set in the headers attributes
     */
-    private parseHeaders(gmail: IEmail): IEmail {
+    private parseHeaders(email: IEmail): IEmail {
 
-        gmail.from = this.parseReceivers(gmail.headers.get('from'))[0]; // should be ok?
-        gmail.to = this.parseReceivers(gmail.headers.get('to'));
-        gmail.cc = this.parseReceivers(gmail.headers.get('cc'));
-        gmail.bcc = this.parseReceivers(gmail.headers.get('bcc'));
-        gmail.dateStr = gmail.headers.get('date') || '';
-        gmail.subject = gmail.headers.get('subject') || '';
-        gmail.attachments = gmail.attachments || gmail.inline || [];
+        email.from = this.parseReceivers(email.headers.get('from'))[0]; // should be ok?
+        email.to = this.parseReceivers(email.headers.get('to'));
+        email.cc = this.parseReceivers(email.headers.get('cc'));
+        email.bcc = this.parseReceivers(email.headers.get('bcc'));
+
+        email.sentDate = parseInt(email.headers.get('date') || '');
+        if (!email.sentDate) {
+            email.sentDate = email.internalDate;
+        }
+        email.subject = email.headers.get('subject') || '';
+        email.attachments = email.attachments || email.inline || [];
+
 
         // clear up
-        gmail.inline = [];
+        email.inline = [];
         const removeHeaders = ['from', 'to', 'cc', 'bcc', 'subject']
         removeHeaders.forEach(header => {
-            gmail.headers.delete(header);
+            email.headers.delete(header);
         })
-        return gmail;
+        return email;
     }
 
     /** converts are string container emails, and returns them as IReceivers[] */
@@ -209,5 +215,17 @@ export class ParseGmailApi {
             }
         }
         return resp.name;
+    }
+
+
+    // left over from previous parsingß
+    public isEmailUnread(labels: string[]): boolean {
+        const UNREAD = 'unread';
+        for (let i = 0; i < labels.length; i++) {
+            if (labels[i] === UNREAD) {
+                return true;
+            }
+        }
+        return false;
     }
 }

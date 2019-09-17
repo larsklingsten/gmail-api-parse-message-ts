@@ -1,5 +1,5 @@
 import { ParseGmailApi } from '../parse-gmail-api';
-import { getEmptyEmail } from '../snippets';
+import { getEmptyEmail } from '../constants';
 import { Compare, CompareError } from 'klingsten-snippets';
 
 export class TestParseAddresses {

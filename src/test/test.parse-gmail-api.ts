@@ -3,7 +3,7 @@ import { GMAIL_RESP_LK_PLAIN, GMAIL_RESP_CLAUDIA_1ATTACH, GMAIL_RESP_UBS_BUGFIX,
 import { ParseGmailApi } from './../parse-gmail-api';
 import { IAttachment } from '../iface/iattachment';
 import { IEmail } from '../iface/iemail';
-import { getEmptyEmail, removeNonPrint } from '../snippets';
+import { getEmptyEmail, removeNonPrint } from '../constants';
 
 
 const ATTRIB_RECEIVERS = ['id', 'to', 'cc', 'from', 'subject']
