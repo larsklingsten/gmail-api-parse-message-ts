@@ -141,8 +141,10 @@ export class ParseGmailApi {
     * @param { IEmail } with 'to' 'from' 'cc' 'subject' 'bcc' set in the headers attributes
     */
     private parseHeaders(email: IEmail): IEmail {
-
-        email.from = this.parseReceivers(email.headers.get('from'))[0]; // should be ok?
+        if (!email.headers) {
+            console.log('@ParseGmailApi @parseHeaders Email has not Headers!', 'email= ', email)
+        }
+        email.from = this.parseReceivers(email.headers.get('from'))[0] || []; // should be ok?
         email.to = this.parseReceivers(email.headers.get('to'));
         email.cc = this.parseReceivers(email.headers.get('cc'));
         email.bcc = this.parseReceivers(email.headers.get('bcc'));
@@ -155,12 +157,12 @@ export class ParseGmailApi {
         email.attachments = email.attachments || email.inline || [];
 
 
-        // clear up
-        email.inline = [];
-        const removeHeaders = ['from', 'to', 'cc', 'bcc', 'subject']
-        removeHeaders.forEach(header => {
-            email.headers.delete(header);
-        })
+        // clean up
+        email.inline = []; // merged with attachments into attachments
+        const removeHeadersFromEmail = ['from', 'to', 'cc', 'bcc', 'subject']
+        for (let i = 0; i < removeHeadersFromEmail.length; i++) {
+            email.headers.delete(removeHeadersFromEmail[i]);
+        }
         return email;
     }
 
@@ -184,7 +186,7 @@ export class ParseGmailApi {
         }
         return receivers;
     }
- 
+
 
     private removeUnwantedCharsFromName(s: string) {
         const re = /(['"<>()!*;#?]+)/gm

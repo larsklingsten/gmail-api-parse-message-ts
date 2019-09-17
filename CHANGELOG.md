@@ -1,4 +1,7 @@
 # Versions
+## 2.2.23
+BugFix. Headers may be undefined for deleted 'email'
+
 ## 2.2.22
 Removes @ParseApiGmail function this.ensureNameFromSplit() ->  {name} can be empty string
 
