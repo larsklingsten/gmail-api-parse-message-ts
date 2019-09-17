@@ -14,8 +14,6 @@ export class ParseGmailApi {
 
     constructor() { }
 
-
-
     /**  parses Gmail Api Response, and return a parse IGmail Object
      * @param {gmailApiResp} gmail api response 
      * @returns {IEmail } with message parsed to textPlain or textHmtl, receivers, attachments, and 
@@ -24,18 +22,15 @@ export class ParseGmailApi {
 
         // its not evident that we only need the result, so we test to see what we got
         const resp = gmailApiResp['result'] || gmailApiResp;
-
         const gmail = this.parseRawGmailResponse(resp);
         this.parseHeaders(gmail);
         return gmail;
     }
 
-
     /** Decodes a URLSAFE Base64 string to its original representation */
     public urlB64Decode(s: string): string {
         return s ? decodeURIComponent(escape(b64Decode(s.replace(/\-/g, '+').replace(/\_/g, '/')))) : '';
     }
-
 
     /** Parses a Gmail API response to a iGmail object 
      * 'to', 'from' 'cc', 'subject' are stored property 'headers'  */
@@ -117,12 +112,9 @@ export class ParseGmailApi {
     };
 
     private isAttachment(part: IPart): boolean {
-        if (part.body.attachmentId && part.filename) {
-            return true;
-        }
+        if (part.body.attachmentId && part.filename) { return true; }
         return false;
     }
-
 
     private indexHeaders(headers: any) {
         const result = new Map<string, string>();
@@ -136,9 +128,6 @@ export class ParseGmailApi {
         return result;
     }
 
-
-
-
     /** for testing parseAddresses purpose only
      * does not mutate object gmail, return a parsed copy
      */
@@ -146,10 +135,6 @@ export class ParseGmailApi {
         const copy = copyGmail(gmail);
         return this.parseHeaders(copy);
     }
-
-
-
-
 
     /**  mutates/parse IEmail headers (such as 'to', 'subject') 
      * to to, cc, from, subject attributes  
@@ -193,29 +178,13 @@ export class ParseGmailApi {
 
         //split name from email address
         for (let i = 0; i < strArrReceivers.length; i++) {
-            const resp = Strings.splitNameFromEmail(strArrReceivers[i])
-            resp.name = this.ensureNameFromSplit(resp);
+            const resp = Strings.splitNameFromEmail(strArrReceivers[i]);
             resp.name = this.removeUnwantedCharsFromName(resp.name);
             receivers.push({ name: resp.name, email: resp.email });
         }
         return receivers;
     }
-
-    /**  ensures that the name is always update with a name, 
- * such as a resp {name:'', email:'lars@email.com'} we extract names from the email  */
-    private ensureNameFromSplit(resp: { name: string, email: string }): string {
-        // if a name was not provided, then we take the first part of the email adr
-        if (!resp.name) {
-            const pos = resp.email.indexOf('@');
-            // @ must be found, and is not in the first [0] position ('@email.com' is not a valid email adr )
-            if (pos > 0) {
-                resp.name = resp.email[0].toUpperCase() + resp.email.substr(1, pos - 1);
-            } else {
-                console.log(`bug: @parseReceivers email="${resp.email}".Emailadr has not "@" or nothing before "@"`);
-            }
-        }
-        return resp.name;
-    }
+ 
 
     private removeUnwantedCharsFromName(s: string) {
         const re = /(['"<>()!*;#?]+)/gm

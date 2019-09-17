@@ -1,4 +1,6 @@
 # Versions
+## 2.2.22
+Removes @ParseApiGmail function this.ensureNameFromSplit() ->  {name} can be empty string
 
 ## 2.2.21
 Adds removeUnwantedCharsFromName()

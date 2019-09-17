@@ -16,10 +16,10 @@ export class TestParseReceivers {
         const test = {
             name: "svcParseGmailApi.parseReceivers()",
             insAndOuts: [
-                { in: 'lars@gog.net', exp: [{ name: 'Lars', email: 'lars@gog.net' }] },
-                { in: 'Lars@gog.net', exp: [{ name: 'Lars', email: 'lars@gog.net' }] }, // email in ucase
-                { in: 'l@gog.net', exp: [{ name: 'L', email: 'l@gog.net' }] },
-                { in: '"lk@ckhansen.dk" <lk@ckhansen.dk>', exp: [{ name: 'Lk', email: 'lk@ckhansen.dk' }] },
+                { in: 'lars@gog.net', exp: [{ name: '', email: 'lars@gog.net' }] },
+                { in: 'Lars@gog.net', exp: [{ name: '', email: 'lars@gog.net' }] }, // email in ucase
+                { in: 'l@gog.net', exp: [{ name: '', email: 'l@gog.net' }] },
+                { in: '"lk@ckhansen.dk" <lk@ckhansen.dk>', exp: [{ name: '', email: 'lk@ckhansen.dk' }] },
                 { in: '"Lars" l@gog.net', exp: [{ name: 'Lars', email: 'l@gog.net' }] },            // "" should be removed
                 { in: "'Lars' l@gog.net", exp: [{ name: 'Lars', email: 'l@gog.net' }] },            // '' should be removed 
                 { in: "'\"Lars><<>!\"?#' l@gog.net", exp: [{ name: 'Lars', email: 'l@gog.net' }] },   // '' should be removed 
