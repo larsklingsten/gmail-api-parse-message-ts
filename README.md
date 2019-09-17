@@ -130,6 +130,7 @@ interface IGapiLabel {
  * @return {iGmail object}  
  */
  parseMessage(response);
+ getEmptyEmail();
 ```
 
 ## Forked

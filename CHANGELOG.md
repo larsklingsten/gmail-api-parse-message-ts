@@ -1,6 +1,9 @@
 # Versions
 
 ## 2.2.19
+Adds getEmptyEmail() to exported functions 
+
+## 2.2.19
 DateStr renamed to SentDate and stored as number; SendDate gets updated header('date') or if missing from internalDate (gmail timestmap) 
 further addes isUnread boolean to IEmail, based on the labelID = "unread"
 
