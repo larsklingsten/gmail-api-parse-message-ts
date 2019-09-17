@@ -1,5 +1,8 @@
 # Versions
 
+## 2.2.17
+updates klingsten-snippets dependency to 1.0.25 to bugfix @klingsten-snippets @String.splitNameFromEmail 
+
 ## 2.2.16
 - updates klingsten-snippets dependency to 1.0.24 (no code changes necessary)
 

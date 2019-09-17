@@ -1,6 +1,6 @@
 import { ParseGmailApi } from '../parse-gmail-api';
 import { getEmptyEmail } from '../snippets';
-import { Compare } from 'klingsten-snippets';
+import { Compare, CompareError } from 'klingsten-snippets';
 
 export class TestParseAddresses {
     constructor() {
@@ -38,19 +38,21 @@ export class TestParseAddresses {
         };
 
         // compare
+        let errorsAll: CompareError[] = [];
         const result = svcParse.test_parseAddresses(test.in)
 
-         let errors = Compare.objects(result, test.expect, [  'subject']);
-        Compare.printErrors(errors, test.name);
+        let errors = Compare.objects(result, test.expect, ['subject']);
+        errorsAll = errorsAll.concat(errors);
 
         errors = Compare.arrays(result.to, test.expect.to, ['name', 'email']);
-        Compare.printErrors(errors, test.name + '_to');
+        errorsAll = errorsAll.concat(errors);
 
         errors = Compare.arrays(result.cc, test.expect.cc, ['name', 'email']);
-        Compare.printErrors(errors, test.name + '_cc');
+        errorsAll = errorsAll.concat(errors);
 
         errors = Compare.arrays(result.bcc, test.expect.bcc, ['name', 'email']);
-        Compare.printErrors(errors, test.name + '_bcc');
+        errorsAll = errorsAll.concat(errors);
+        Compare.printErrors(errorsAll, test.name + '_to_cc_bcc' + ' tests=4');
 
 
 

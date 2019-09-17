@@ -32,7 +32,7 @@ export class ParseGmailApi {
 
 
     /** Decodes a URLSAFE Base64 string to its original representation */
-    private urlB64Decode(s: string): string {
+    public urlB64Decode(s: string): string {
         return s ? decodeURIComponent(escape(b64Decode(s.replace(/\-/g, '+').replace(/\_/g, '/')))) : '';
     }
 
