@@ -1,6 +1,6 @@
 # Versions
 
-## 2.2.20
+## 2.2.21
 Adds removeUnwantedCharsFromName()
 
 ## 2.2.19
