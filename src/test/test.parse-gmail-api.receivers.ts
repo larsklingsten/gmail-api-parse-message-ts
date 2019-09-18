@@ -4,9 +4,7 @@ import { Compare, CompareError } from 'klingsten-snippets';
 export class TestParseReceivers {
 
     constructor() {
-
         this.test_stingsToEmails();
-
     }
 
     private test_stingsToEmails() {
@@ -20,6 +18,7 @@ export class TestParseReceivers {
                 { in: 'Lars@gog.net', exp: [{ name: '', email: 'lars@gog.net' }] }, // email in ucase
                 { in: 'l@gog.net', exp: [{ name: '', email: 'l@gog.net' }] },
                 { in: '"lk@ckhansen.dk" <lk@ckhansen.dk>', exp: [{ name: '', email: 'lk@ckhansen.dk' }] },
+                { in: '"Kens, Lars" l@gog.net', exp: [{ name: 'Kens Lars', email: 'l@gog.net' }] },            // , should be removed
                 { in: '"Lars" l@gog.net', exp: [{ name: 'Lars', email: 'l@gog.net' }] },            // "" should be removed
                 { in: "'Lars' l@gog.net", exp: [{ name: 'Lars', email: 'l@gog.net' }] },            // '' should be removed 
                 { in: "'\"Lars><<>!\"?#' l@gog.net", exp: [{ name: 'Lars', email: 'l@gog.net' }] },   // '' should be removed 

@@ -1,4 +1,7 @@
 # Versions
+## 2.2.24
+updates removeUnwantedCharsFromName(), now removes also ',' from name
+
 ## 2.2.23
 BugFix. Headers may be undefined for deleted 'email'
 

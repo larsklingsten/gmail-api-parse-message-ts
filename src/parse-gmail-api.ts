@@ -129,10 +129,10 @@ export class ParseGmailApi {
     }
 
     /** for testing parseAddresses purpose only
-     * does not mutate object gmail, return a parsed copy
+     * does not mutate object Email, return a parsed copy
      */
-    public test_parseAddresses(gmail: IEmail): IEmail {
-        const copy = copyGmail(gmail);
+    public test_parseAddresses(email: IEmail): IEmail {
+        const copy = copyGmail(email);
         return this.parseHeaders(copy);
     }
 
@@ -189,7 +189,7 @@ export class ParseGmailApi {
 
 
     private removeUnwantedCharsFromName(s: string) {
-        const re = /(['"<>()!*;#?]+)/gm
+        const re = /(['"<>()!*;,#?]+)/gm
         return s.replace(re, '');
     }
 
