@@ -116,8 +116,15 @@ export class ParseGmailApi {
         return false;
     }
 
-    private indexHeaders(headers: any) {
+    /** Converts email headers (such  as "subject":"Email Subj" into
+     *  map<sting,string> with the key in lowercase. Its further 
+     * combines headers such as "received_from" into a single key value pair  */
+    private indexHeaders(headers: any): Map<string, string> {
         const result = new Map<string, string>();
+
+        if (!headers) { // missing headers could come from Gmail draft, or an outgoing message
+            return result;
+        }
         headers.forEach((v: any) => {
             let value = result.get(v.name.toLowerCase());
             if (!value) {
@@ -141,9 +148,7 @@ export class ParseGmailApi {
     * @param { IEmail } with 'to' 'from' 'cc' 'subject' 'bcc' set in the headers attributes
     */
     private parseHeaders(email: IEmail): IEmail {
-        if (!email.headers) {
-            console.log('@ParseGmailApi @parseHeaders Email has not Headers!', 'email= ', email)
-        }
+
         email.from = this.parseReceivers(email.headers.get('from'))[0] || []; // should be ok?
         email.to = this.parseReceivers(email.headers.get('to'));
         email.cc = this.parseReceivers(email.headers.get('cc'));

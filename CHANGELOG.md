@@ -1,4 +1,8 @@
 # Versions
+
+## 2.2.25
+bugFix, checks for undefined values indexHeaders(), causing runtime errors in certain cases
+
 ## 2.2.24
 updates removeUnwantedCharsFromName(), now removes also ',' from name
 
