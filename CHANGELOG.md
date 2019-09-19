@@ -4,13 +4,13 @@
 bugFix, checks for undefined values indexHeaders(), causing runtime errors in certain cases
 
 ## 2.2.24
-updates removeUnwantedCharsFromName(), now removes also ',' from name
+updates removeUnwantedCharsFromName(), now removes also ',' from IReceiver {name}
 
 ## 2.2.23
 BugFix. Headers may be undefined for deleted 'email'
 
 ## 2.2.22
-Removes @ParseApiGmail function this.ensureNameFromSplit() ->  {name} can be empty string
+Removes @ParseApiGmail function this.ensureNameFromSplit() -> IReceiver {name} can be empty string
 
 ## 2.2.21
 Adds removeUnwantedCharsFromName()
@@ -19,8 +19,9 @@ Adds removeUnwantedCharsFromName()
 Adds getEmptyEmail() to exported functions 
 
 ## 2.2.19
-DateStr renamed to SentDate and stored as number; SendDate gets updated header('date') or if missing from internalDate (gmail timestmap) 
-further addes isUnread boolean to IEmail, based on the labelID = "unread"
+- DateStr renamed to SentDate and stored as number
+- SendDate gets updated header('date') or if missing from internalDate (gmail timestmap) 
+- adds attribute isUnread: boolean to IEmail (set by labelIds containing "unread"
 
 ## 2.2.18
 updates klingsten-snippets dependency to 1.0.25 to bugfix @klingsten-snippets @String.splitNameFromEmail 
