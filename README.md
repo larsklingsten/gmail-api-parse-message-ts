@@ -122,7 +122,6 @@ interface IGapiLabel {
 
 ## API
 
-
 ```ts
  /**  parses a gmail-api message.resource object, and returns a IEmail Object
   * @param   messages.resource
@@ -130,20 +129,18 @@ interface IGapiLabel {
   * messages.resource: https://developers.google.com/gmail/api/v1/reference/users/messages#resource  */
  parseMessage(response);
 
- /** get a empty email object 
+ /** get a empty email object
   *  @returns IEmail object  */
  getEmptyEmail();
 
-  /** converts are string containing emails, and returns them as IReceivers[]
+ /** converts are string containing emails, and returns them as IReceivers[]
   * @param   string
   * @returns IReceiver[] 
   * 
-  * example:
-  * parseReceivers("lars@kltn.net", 'lars' lk@kl.net");
-  * returns -> [ {name:'', email: "lars@kltn.net"}, { name:'lars', email:"lk@kl.net" } ]
-  * 
-  * */
-  public parseReceivers(receiverStr): IReceiver[] {
+  * example usage:
+  * parseReceivers('lars@kltn.net, "lars" lk@kl.net');
+  * returns -> [ {name:'', email: "lars@kltn.net"}, { name:'lars', email:"lk@kl.net" } ]   */
+parseReceivers(receiverStr): IReceiver[] {
 ```
 
 ## Forked
