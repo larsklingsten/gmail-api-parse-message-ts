@@ -30,12 +30,12 @@ export class ParseEmailService {
           const parse = new ParseGmailApi();
           const gmailResponse = await getEmail('[id of your gmail message]');
           const email : IEmail = parse.parseMessage(gmailResponse);  // returns IEmail object
-          console.log(email);  // see iGmail below
+          console.log(email);  // see IEmail below
     }
  }
 ```
 
-running parseEmail() which returns an iGmail object
+running parseEmail() which returns an IEmail object
 
 ```ts
 interface IEmail {
