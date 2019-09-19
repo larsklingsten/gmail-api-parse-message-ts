@@ -133,13 +133,13 @@ interface IGapiLabel {
   *  @returns IEmail object  */
  getEmptyEmail();
 
- /** converts are string containing emails, and returns them as IReceivers[]
+ /** parses a string containing one or more names/emails, and returns them as IReceivers[]
   * @param   string
   * @returns IReceiver[] 
   * 
   * example usage:
-  * parseReceivers('lars@kltn.net, "lars" lk@kl.net');
-  * returns -> [ {name:'', email: "lars@kltn.net"}, { name:'lars', email:"lk@kl.net" } ]   */
+  * parseReceivers("lars@kltn.net, 'lars' lk@kl.net");
+  * returns -> [ {name:"", email: "lars@kltn.net"}, { name:"lars", email:"lk@kl.net" } ]   */
 parseReceivers(receiverStr): IReceiver[] {
 ```
 
