@@ -30,7 +30,7 @@ updates klingsten-snippets dependency to 1.0.25 to bugfix @klingsten-snippets @S
 - updates klingsten-snippets dependency to 1.0.24 (no code changes necessary)
 
 ## 2.2.13
-- adds cherry-picking option (similar to v2.0.0) having `subject`, `from`, `to`, `cc`, `bcc`, and `message-id` in the object.
+- adds cherry-picking option (similar to versions prior to  v2.0.0) having `subject`, `from`, `to`, `cc`, `bcc`, and `message-id` in the object.
 - adds IReceiver interface {name: '', email:''}
 - uses 'klingsten snippets' as dependency (Strings.splitExceptQuotes, Strings.removeNonPrintingCharsAndSpaces)
 - moves Compare.arrays, Compare.objects, Compare.printErrors to klingsten-snippets
