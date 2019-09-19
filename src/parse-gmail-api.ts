@@ -14,9 +14,11 @@ export class ParseGmailApi {
 
     constructor() { }
 
-    /**  parses Gmail Api Response, and return a parse IGmail Object
-     * @param {gmailApiResp} gmail api response 
-     * @returns {IEmail } with message parsed to textPlain or textHmtl, receivers, attachments, and 
+    /**  parses a gmail-api message.resource object, and returns a IEmail Object
+     * @param   messages.resource
+     * @returns IEmail 
+     * 
+     * messages.resource: https://developers.google.com/gmail/api/v1/reference/users/messages#resource 
      */
     public parseMessage(gmailApiResp: any): IEmail {
 
