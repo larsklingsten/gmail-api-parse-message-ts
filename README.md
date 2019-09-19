@@ -124,13 +124,26 @@ interface IGapiLabel {
 
 
 ```ts
-/**
- * Takes a response from the Gmail API's GET message method and extracts all the relevant data.
- * @param  {object} gmail api response - The response from the Gmail API parsed to a JavaScript object.
- * @return {iGmail object}  
- */
+ /**  parses a gmail-api message.resource object, and returns a IEmail Object
+  * @param   messages.resource
+  * @returns IEmail
+  * messages.resource: https://developers.google.com/gmail/api/v1/reference/users/messages#resource  */
  parseMessage(response);
+
+ /** get a empty email object 
+  *  @returns IEmail object  */
  getEmptyEmail();
+
+  /** converts are string containing emails, and returns them as IReceivers[]
+  * @param   string
+  * @returns IReceiver[] 
+  * 
+  * example:
+  * parseReceivers("lars@kltn.net", 'lars' lk@kl.net");
+  * returns -> [ {name:'', email: "lars@kltn.net"}, { name:'lars', email:"lk@kl.net" } ]
+  * 
+  * */
+  public parseReceivers(receiverStr): IReceiver[] {
 ```
 
 ## Forked
