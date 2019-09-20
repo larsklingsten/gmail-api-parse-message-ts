@@ -11,8 +11,7 @@ npm install --save gmail-api-parse-message-ts --latest
 ## Example usage
 
 ```ts
-import { ParseGmailApi } from 'gmail-api-parse-message-ts';
-import { IGmail } from 'gmail-api-parse-message-ts/dist/iface/iGmail';
+import { ParseGmailApi, IEmail } from 'gmail-api-parse-message-ts';
 
 export class ParseEmailService {
     /**  fetch single email from Gmail API  */
@@ -28,7 +27,7 @@ export class ParseEmailService {
     /** Parses Email */
     async parseEmail() {      
           const parse = new ParseGmailApi();
-          const gmailResponse = await getEmail('[id of your gmail message]');
+          const gmailResponse = await getEmailFromApi('[id of your gmail message]');
           const email : IEmail = parse.parseMessage(gmailResponse);  // returns IEmail object
           console.log(email);  // see IEmail below
     }
