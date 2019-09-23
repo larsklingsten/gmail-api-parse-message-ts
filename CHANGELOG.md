@@ -1,5 +1,8 @@
 # Versions
 
+## 2.2.27
+add  isEmailValid: boolean function, check whether or not an email is valid
+
 ## 2.2.26
 add  isValid?: boolean to interface IReceiver. comments: Optional. Possible to marked users non-valid emails, as not valid, for later evaluation 
 

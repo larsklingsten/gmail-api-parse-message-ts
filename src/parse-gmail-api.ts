@@ -34,6 +34,11 @@ export class ParseGmailApi {
         return s ? decodeURIComponent(escape(b64Decode(s.replace(/\-/g, '+').replace(/\_/g, '/')))) : '';
     }
 
+    /** check whether an email address is valid, exposes func from klingsten snippets */
+    public isEmailValid(s: string): boolean {
+        return Strings.isEmailValid(s);
+    }
+
     /** Parses a Gmail API response to a iGmail object 
      * 'to', 'from' 'cc', 'subject' are stored property 'headers'  */
     private parseRawGmailResponse(gmailApiResp: any): IEmail {
