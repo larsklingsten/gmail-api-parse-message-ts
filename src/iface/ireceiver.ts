@@ -5,4 +5,8 @@ export interface IReceiver {
 
     /** Email address */
     email: string;
+
+    /** Optional. Possible to marked users non-valid emails, as not valid, for later evaluation   */
+    isValid?: boolean;
+
 }

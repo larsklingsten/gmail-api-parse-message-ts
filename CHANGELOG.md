@@ -1,5 +1,8 @@
 # Versions
 
+## 2.2.26
+add  isValid?: boolean to interface IReceiver. comments: Optional. Possible to marked users non-valid emails, as not valid, for later evaluation 
+
 ## 2.2.25
 bugFix, checks for undefined values indexHeaders(), causing runtime errors in certain cases
 
