@@ -1,7 +1,7 @@
 [![npm][npm]][npm-url]
 
 # gmail-api-parse-message typescript
-- Parses Gmail API [message.get] and returns a IGmail object
+- Parses Gmail API [message.get] and returns a IEmail object
 
 ## To install:
 ```bash
@@ -31,21 +31,44 @@ export class ParseEmailService {
           const email : IEmail = parse.parseMessage(gmailResponse);  // returns IEmail object
           console.log(email);  // see IEmail below
     }
-
-    /** converts are string container emails, and returns them as IReceivers[]
-     *  Emails are by default checked for validity, however optional parameter
-     *  checkIfEmailIsValid can be set to false, whereby emails are not checked,
-     *  and isValid is set to true.  ParseGmailApi.parseMessage() always set isValid=true
-     *  without checking  */
-    public parseReceivers(receiverStr: string = "", checkIfEmailIsValid: boolean = true): IReceiver[] 
-    
-     /** check whether an email address is valid, exposes func from klingsten snippets 
-      * see https://bitbucket.org/LarsKlingsten/klingsten-snippets-ts/src/master/src/strings.ts  */
-    public isEmailValid(s: string): boolean  
+  
 ```
 
-running parseEmail() which returns an IEmail object
+## API
 
+```ts
+/**  parses a gmail-api message.resource object, and returns an IEmail Object
+* @param   messages.resource
+* @returns IEmail
+* 
+* messages.resource: https://developers.google.com/gmail/api/v1/reference/users/messages#resource  */
+parseMessage(response): IEmail
+
+ /** get a empty IEmail object with default values
+  *  @returns IEmail object  */
+getEmptyEmail(): IEmail
+ 
+/** converts are string container emails, and returns them as IReceivers[]
+ *  Emails are by default checked for validity, however optional parameter
+ *  checkIfEmailIsValid can be set to false, whereby emails are not checked,
+ *  and isValid is set to true.  ParseGmailApi.parseMessage() always set isValid=true
+ *  without checking 
+ * 
+ * @param   string
+ * @returns IReceiver[] 
+ * 
+ * example usage:
+ * parseReceivers("lars@kltn.net, 'lars' lk@kl.net");
+ * returns -> [ {name:"", email: "lars@kltn.net", isValid:true}, { name:"lars", email:"lk@kl.net", isValid:true } ]   */
+public parseReceivers(receiverStr: string = "", checkIfEmailIsValid: boolean = true): IReceiver[] 
+
+/** check whether an email address is valid, exposes func from klingsten snippets 
+* see https://bitbucket.org/LarsKlingsten/klingsten-snippets-ts/src/master/src/strings.ts  */
+public isEmailValid(s: string): boolean  
+
+```
+
+## Interfaces
 ```ts
 interface IEmail {
 
@@ -130,40 +153,6 @@ interface IGapiLabel {
     threadsUnread?: number;
     type?: string;
 }
-
-```
-
-## API
-
-```ts
-/**  parses a gmail-api message.resource object, and returns a IEmail Object
-* @param   messages.resource
-* @returns IEmail
-* 
-* messages.resource: https://developers.google.com/gmail/api/v1/reference/users/messages#resource  */
-parseMessage(response): IEmail
-
- /** get a empty email object
-  *  @returns IEmail object  */
-getEmptyEmail(): IEmail
- 
-/** converts are string container emails, and returns them as IReceivers[]
- *  Emails are by default checked for validity, however optional parameter
- *  checkIfEmailIsValid can be set to false, whereby emails are not checked,
- *  and isValid is set to true.  ParseGmailApi.parseMessage() always set isValid=true
- *  without checking 
- * 
- * @param   string
- * @returns IReceiver[] 
- * 
- * example usage:
- * parseReceivers("lars@kltn.net, 'lars' lk@kl.net");
- * returns -> [ {name:"", email: "lars@kltn.net", isValid:true}, { name:"lars", email:"lk@kl.net", isValid:true } ]   */
-public parseReceivers(receiverStr: string = "", checkIfEmailIsValid: boolean = true): IReceiver[] 
-
-/** check whether an email address is valid, exposes func from klingsten snippets 
-* see https://bitbucket.org/LarsKlingsten/klingsten-snippets-ts/src/master/src/strings.ts  */
-public isEmailValid(s: string): boolean  
 
 ```
 
