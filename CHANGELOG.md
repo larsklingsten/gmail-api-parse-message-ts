@@ -1,5 +1,8 @@
 # Versions
 
+## 2.2.28
+@IReceiver.isValid is now required (was optional). Set is as true as default by ParseGmailApi.parseMessage(). Validation appears to be redundant, as emails from the gmail api, should be  correct
+
 ## 2.2.27
 add  isEmailValid: boolean function, check whether or not an email is valid
 

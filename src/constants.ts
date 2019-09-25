@@ -11,7 +11,7 @@ export function getEmptyEmail(): IEmail {
         textHtml: '',
         internalDate: -1,
         sentDate: -1,
-        from: { name: '', email: '' },
+        from: { name: '', email: '',  isValid: true },
         to: [],
         cc: [],
         bcc: [],

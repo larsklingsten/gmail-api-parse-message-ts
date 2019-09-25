@@ -26,9 +26,9 @@ export class TestParseAddresses {
 
 
         const gmailExp = getEmptyEmail();
-        gmailExp.to = [{ name: '', email: 'lars.kornmod@s.com' }];
-        gmailExp.cc = [{ name: '', email: 'jan.dehaas@s.com' }, { name: '', email: 'annette.bode@s.com' }];
-        gmailExp.bcc = [{ name: 'bcc', email: 'bcc@ckhansen.net' }];          // we dont expect Bcc as the name was provided from the headers
+        gmailExp.to = [{ name: '', email: 'lars.kornmod@s.com', isValid: true }];
+        gmailExp.cc = [{ name: '', email: 'jan.dehaas@s.com' , isValid: true}, { name: '', email: 'annette.bode@s.com' , isValid: true}];
+        gmailExp.bcc = [{ name: 'bcc', email: 'bcc@ckhansen.net', isValid: true }];          // we dont expect Bcc as the name was provided from the headers
         gmailExp.subject = 'RE: Telefonsamtale idag kl 14.05 KEY:UBS LUX'
 
         const test = {

@@ -6,7 +6,8 @@ export interface IReceiver {
     /** Email address */
     email: string;
 
-    /** Optional. Possible to marked users non-valid emails, as not valid, for later evaluation   */
-    isValid?: boolean;
+    /** set is as true as default by ParseGmailApi.parseMessage(). Validation appears to be 
+     * redundant, as emails from the gmail api, should be  correct */ 
+    isValid : boolean;
 
 }

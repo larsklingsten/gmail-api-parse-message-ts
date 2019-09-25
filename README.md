@@ -102,6 +102,10 @@ interface IAttachment {
 interface IReceiver {
    name: string;
    email: string;
+   /**  set is as true as default by ParseGmailApi.parseMessage(). Validation appears to be 
+    * redundant, as emails from the gmail api, should be  correct */
+   isValid: boolean; 
+
 }
 
 /** Just A Copy of Gmail API Label  -> gapi.client.gmail.Label */

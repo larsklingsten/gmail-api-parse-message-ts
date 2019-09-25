@@ -194,7 +194,7 @@ export class ParseGmailApi {
         for (let i = 0; i < strArrReceivers.length; i++) {
             const resp = Strings.splitNameFromEmail(strArrReceivers[i]);
             resp.name = this.removeUnwantedCharsFromName(resp.name);
-            receivers.push({ name: resp.name, email: resp.email });
+            receivers.push({ name: resp.name, email: resp.email, isValid:true });
         }
         return receivers;
     }
