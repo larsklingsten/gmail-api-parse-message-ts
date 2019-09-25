@@ -1,5 +1,8 @@
 # Versions
 
+## 2.2.29
+reversal on 2.2.28.  Emails are by default checked for validity, however optional parameter checkIfEmailIsValid can be set to false, whereby emails are not checked, and isValid is set to true.  ParseGmailApi.parseMessage() always set isValid=true (without checking).
+
 ## 2.2.28
 @IReceiver.isValid is now required (was optional). Set is as true as default by ParseGmailApi.parseMessage(). Validation appears to be redundant, as emails from the gmail api, should be  correct
 

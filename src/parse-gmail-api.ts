@@ -156,10 +156,10 @@ export class ParseGmailApi {
     */
     private parseHeaders(email: IEmail): IEmail {
 
-        email.from = this.parseReceivers(email.headers.get('from'))[0] || []; // should be ok?
-        email.to = this.parseReceivers(email.headers.get('to'));
-        email.cc = this.parseReceivers(email.headers.get('cc'));
-        email.bcc = this.parseReceivers(email.headers.get('bcc'));
+        email.from = this.parseReceivers(email.headers.get('from'), false)[0] || []; // should be ok?
+        email.to = this.parseReceivers(email.headers.get('to'), false);
+        email.cc = this.parseReceivers(email.headers.get('cc'), false);
+        email.bcc = this.parseReceivers(email.headers.get('bcc'), false);
 
         email.sentDate = parseInt(email.headers.get('date') || '');
         if (!email.sentDate) {
@@ -178,8 +178,12 @@ export class ParseGmailApi {
         return email;
     }
 
-    /** converts are string container emails, and returns them as IReceivers[] */
-    public parseReceivers(receiverStr: string = ""): IReceiver[] {
+    /** converts are string container emails, and returns them as IReceivers[]
+     *  Emails are by default checked for validity, however optional parameter
+     *  checkIfEmailIsValid can be set to false, whereby emails are not checked,
+     *  and isValid is set to true.  ParseGmailApi.parseMessage() always set isValid=true
+     *  without checking  */
+    public parseReceivers(receiverStr: string = "", checkIfEmailIsValid: boolean = true): IReceiver[] {
         const receivers: IReceiver[] = [];
         if (!receiverStr) {
             return receivers;
@@ -194,7 +198,11 @@ export class ParseGmailApi {
         for (let i = 0; i < strArrReceivers.length; i++) {
             const resp = Strings.splitNameFromEmail(strArrReceivers[i]);
             resp.name = this.removeUnwantedCharsFromName(resp.name);
-            receivers.push({ name: resp.name, email: resp.email, isValid:true });
+            receivers.push({
+                name: resp.name,
+                email: resp.email,
+                isValid: checkIfEmailIsValid ? this.isEmailValid(resp.email) : true
+            });
         }
         return receivers;
     }
