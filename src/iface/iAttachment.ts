@@ -6,6 +6,6 @@ export interface IAttachment {
     headers?: any
 
     /** data must be URLsafe base64 encoded */
-    data?: Blob;
+    data?: string;
     dataEncoding?: string;
 }
