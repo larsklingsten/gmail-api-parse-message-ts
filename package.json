@@ -1,6 +1,6 @@
 {
   "name": "gmail-api-parse-message-ts",
-  "version": "2.2.30",
+  "version": "2.2.31",
   "description": "Parses Gmail API's GET method to iGmail object. Typescript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
