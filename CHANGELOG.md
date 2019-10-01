@@ -1,4 +1,6 @@
 # Versions
+## 2.2.30
+BugFix. Labels could be empty. isEmailsDraft now checks whether or labels do exists 
 
 ## 2.2.29
 reversal on 2.2.28.  Emails are by default checked for validity, however optional parameter checkIfEmailIsValid can be set to false, whereby emails are not checked, and isValid is set to true.  ParseGmailApi.parseMessage() always set isValid=true (without checking).
