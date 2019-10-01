@@ -20,6 +20,7 @@ export class TestParseGmailApi {
     constructor() {
         /**  should all run */
         this.test_parseBase64();
+        this.test_parseBase64_system();
         this.test_parseEmail_LK_PLAIN();
         this.test_parseEmail_CLAUDIA_1ATTACH();
         this.test_parseEmail_UBS_BUGFIX();
@@ -49,6 +50,45 @@ export class TestParseGmailApi {
             console.log(`  -> got=len=${result.length}  expect=len=${test.exp.length}`);
         }
     }
+
+    /** No tests are evaluated */
+    test_parseBase64_system() {
+        const ENCODED = "Q29udGVudC1UeXBlOiBtdWx0aXBhcnQvbWl4ZWQ7Ym91bmRhcnk9OG9BbFFhMk4NClN1YmplY3Q6ID0_dWZ0LTg_Qj9kR1Z6ZEdsdVp3Pz0NClgtU2VuZGVyOiBTaW1wbGlmaWVkIEdtYWlsIHYwLjEuMjUNCg0KLS04b0FsUWEyTg0KQ29udGVudC1UeXBlOiBtdWx0aXBhcnQvYWx0ZXJuYXRlO2JvdW5kYXJ5PTQ2UXNNSEp3DQoNCi0tNDZRc01ISncNCkNvbnRlbnQtVHlwZTogdGV4dC9wbGFpbjtjaGFyc2V0PXV0Zi04DQoNClt7Im1heEVtYWlscyI6MTAsImxhYmVscyI6W3siaWQiOiJsYWJlbF84OCJ9XSwicXVlcnkiOiJmcm9tOmtmODBAb3ZlcnNlYXMuY29tLnNnIn0seyJtYXhFbWFpbHMiOjAsImxhYmVscyI6W10sInF1ZXJ5IjoiZnJvbTpsYXJzQG92ZXJzZWFzLmNvbS5zZyJ9XQ0KLS00NlFzTUhKdy0tDQotLThvQWxRYTJOLS0"
+
+
+        const expectGmail: IEmail = getEmptyEmail();
+        expectGmail.id = '16d054733b8b1ea1';
+        expectGmail.textPlain = `Lars,jegbederdigvenligstsendeenkopiafjeres'remittance'detaljer.Beløbeterendnuikkemodtaget:LarsoriginalmessageFrom:<lars.kornmod@ubs.com>To:<lars@klingsten.net>Cc:<jan.dehaas@ubs.com>,<annette.bode@ubs.com>Date:Thu,5Sep201913:40:450000`;
+
+        expectGmail.labelIds = [];
+
+        const test = {
+            name: "parseGmailApi.test_parseBase64_system 1/1",
+            func: (s: string) => this.parseGmailApi.urlB64Decode,
+            in: ENCODED,
+            exp: expectGmail
+
+        };
+        const result = this.parseGmailApi.urlB64Decode(test.in)
+
+
+        let resultEmail = this.parseGmailApi.parseMessage(result);
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
 
     test_parseEmail_LK_PLAIN() {
 
@@ -204,8 +244,8 @@ export class TestParseGmailApi {
 
 
         expectGmail.id = '16d15d60afbe8aea';
-        expectGmail.from = { name: 'Km', email: 'km@sparkron.dk' , isValid: true };
-        expectGmail.to = [{ name: 'Lars Klingsten', email: 'lars@klingsten.net' , isValid: true}];
+        expectGmail.from = { name: 'Km', email: 'km@sparkron.dk', isValid: true };
+        expectGmail.to = [{ name: 'Lars Klingsten', email: 'lars@klingsten.net', isValid: true }];
         expectGmail.subject = "Vedr.: Fwd: Sparekassen Kronjylland"
         expectGmail.textPlain = `HejLarsHeltokIkiggerbareindenandendagVenlighilsenKlausMadsenSouschefSkt.PaulsAfdelingJægergårdsgade100B,8000AarhusCEmailkm@sparkron.dkTlf.87321106Fra:LarsKlingsten<lars@klingsten.net>Til:km@sparkron.dkDato:0909201913:42Emne:Vedr.:Fwd:SparekassenKronjyllandHejKlaus,Jegbliverdesværrenødtiludsættemødetidag.Mvh/LarsKlingstenoriginalmessageFrom:km@sparkron.dkTo:LarsKlingsten<lars@klingsten.net>Cc:Date:Thu,5Sep201913:04:440200HejLarsFairnok.Jeghjælpergernemedkonto,nemkontoogmastercarddebit.JegharbrugforatIudfylderogkommerindmedkundeskemalegitimation(pasogsygesikringsbevis)VenlighilsenKlausMadsenSouschefSkt.PaulsAfdelingJægergårdsgade100B,8000AarhusCEmailkm@sparkron.dkTlf.87321106Fra:LarsKlingsten<lars@klingsten.net>Til:km@sparkron.dkDato:0509201912:57Emne:Vedr.:Fwd:SparekassenKronjyllandHejKlaus,MinbankharikkeenafdelingiAarhusMvh/Lars.originalmessageFrom:km@sparkron.dkTo:LarsKlingsten<lars@klingsten.net>Cc:Date:Thu,5Sep201912:40:440200HejLarsSelvtak.Måjegsørge,hvorforIikkebenytterdinbank?(jegtrormåskeIkanfådetlavetgratisder)VenlighilsenKlausMadsenSouschefSkt.PaulsAfdelingJægergårdsgade100B,8000AarhusCEmailkm@sparkron.dkTlf.87321106Fra:LarsKlingsten<lars@klingsten.net>Til:KlausMadsen<km@sparkron.dk>Cc:RYOMAKATO<rkato1911@gmail.com>,ck@klingsten.netDato:0409201916:38Emne:Fwd:SparekassenKronjyllandHejKlausMadsen,Takfordithurtigetilbagesvar.Detsætterjegprispå.Ryomavores15årigeudvekslingsstudentfraJapan,oghanskalbohososdetnæsteårstid.JegharerRyomasværge,menshaneriDK.HanharbrugforenNemKonto,ogvalgetpåKronjyllandersketfordiIerdennærmestebank.Hanharisagensnaturingenpension,lønsedlerosv.Hanerklartilatkommeforbiformedpasoggultsygesikringskort,anytimemvh/LarsKlingsten23237004originalmessageFrom:RYOMAKATO<rkato1911@gmail.com>To:"lars@klingsten.net"<lars@klingsten.net>Cc:Date:Wed,4Sep201916:25:230200ForwardedmessageFrom:<km@sparkron.dk>Date:Wed,Sep4,2019at16:04Subject:SparekassenKronjyllandTo:<rkato1911@gmail.com>HejRyomaTakfordinhenvendelse.Foratkunnebehandledinhenvendelse,viljegbededigomatsendemigfølgendeøkonomiskedokumenter:3senestelønsedlerGivemigadgangtilskat,sevedhæftetvejledningOversigtoverdinefasteudgifterKontooversigtfranuværendebankKopiafpensionsinfo,kanhentespåpensionsinfo.dkDerudoverviljeggernehøremereom:Hvorforerdupåudkigefterennybank?Hvorforerdetosduskrivertil?Hvaderdinforventningtilossombank?Jegserfremtilathørefradig.GodaftenVenlighilsenKlausMadsenSouschef[image:sparekassenkronjylland]<http://sparkron.dk/>Skt.PaulsAfdelingJægergårdsgade100B,8000AarhusC<https://www.google.com/maps/search/J%C3%A6gerg%C3%A5rdsgade100B,8000AarhusC?entry=gmail&source=g>Emailkm@sparkron.dkTlf.87321106[image:nyhedsbrev]<http://sparkron.dk/nyhedsbrev/>[image:twitter]<https://twitter.com/sparkronjylland/>[image:facebook]<http://facebook.com/sparekassenkronjylland/>[image:LinkedIn]<https://www.linkedin.com/company/27187/><https://www.sparkron.dk/privat/selvbetjening/applepay>`;
         expectGmail.attachments = ATTACHMENTS;

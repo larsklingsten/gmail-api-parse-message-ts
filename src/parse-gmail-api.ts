@@ -214,8 +214,11 @@ export class ParseGmailApi {
     }
 
 
-    // left over from previous parsingß
+    /** check if labels "unread" has been set */
     public isEmailUnread(labels: string[]): boolean {
+        if (!labels) {
+            return false;
+        }
         const UNREAD = 'unread';
         for (let i = 0; i < labels.length; i++) {
             if (labels[i] === UNREAD) {
