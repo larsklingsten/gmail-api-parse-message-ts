@@ -1,4 +1,7 @@
 # Versions
+## 2.2.33
+Adds isDownloaded boolean for IEmail
+
 ## 2.2.32
 BugFix. Labels could be empty. isEmailsDraft now checks whether or labels do exists 
 

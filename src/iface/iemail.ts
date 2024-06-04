@@ -52,5 +52,8 @@ export interface IEmail {
 
     /** set by checking whether or not labelID = "DRAFT" exists  */
     isUnread: boolean;
+
+    /** flag stateing whether or not message has been download from gmail  */
+    isDownloaded: boolean;
 }
 
