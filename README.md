@@ -3,7 +3,7 @@
 # gmail-api-parse-message typescript
 - Parses Gmail API [message.get] and returns a IEmail object
 
-## To install:
+## To install :
 ```bash
 npm install --save gmail-api-parse-message-ts --latest
 ```
