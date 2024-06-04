@@ -20,7 +20,8 @@ export function getEmptyEmail(): IEmail {
         snippet: '',
         attachments: [],
         headers: new Map<string, string>(),
-        isUnread: true
+        isUnread: true,
+        isDownloaded: false
 
     };
     return email;

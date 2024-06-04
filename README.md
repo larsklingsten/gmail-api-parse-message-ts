@@ -119,6 +119,9 @@ interface IEmail {
 
     /** is the message unread, set by checking whether or not labelID = "DRAFT" exists  */
     isUnread: boolean;
+
+    /** is the message downloaded from gmail servers  */
+    isDownloaded: boolean;
 }
 
 interface IAttachment {
